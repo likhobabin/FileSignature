@@ -16,8 +16,8 @@ class TDataFormer
 public:
    TDataFormer(void );
    //
-   void readFrom(const char* __FInputFilePath=0);
-   void writeTo(const char* __FOutputFilePath=0);
+   void doRead(const std::string& __FInputFilePath);
+   void doWrite(const std::string& __FOutputFilePath);
    //
    ~TDataFormer(void );
 

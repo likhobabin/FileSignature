@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Source/fsDataFormer.o \
+	${OBJECTDIR}/Source/fsBuffer.o \
 	${OBJECTDIR}/Source/fsUnifException.o \
 	${OBJECTDIR}/Source/fsBitGenerator.o
 
@@ -69,6 +70,11 @@ ${OBJECTDIR}/Source/fsDataFormer.o: Source/fsDataFormer.cpp
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsDataFormer.o Source/fsDataFormer.cpp
+
+${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffer.o Source/fsBuffer.cpp
 
 ${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source

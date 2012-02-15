@@ -12,7 +12,8 @@
 class TException : public std::exception
 {
 public:
-#ifdef amg_Linux
+#ifdef __fsLinux
+////
   TException(void );
   TException(const char* );
   TException(const std::string& );
@@ -21,7 +22,7 @@ public:
   TException& operator=(const TException& );
   virtual const char* what(void ) const throw();
   //
-  std::string getDescription(void ) const
+  const std::string& getDescription(void ) const
   {
      return(FDescription);
   }
@@ -29,8 +30,9 @@ public:
   virtual ~TException(void ) throw();
 
 private:
-   NAmg::TString FDescription;
+   std::string FDescription;
 #else
+#if defined(__fsWindows)
   __CLR_OR_THIS_CALL TException(void );
   __CLR_OR_THIS_CALL TException(const char* );
   __CLR_OR_THIS_CALL TException(const std::string& );
@@ -41,7 +43,9 @@ private:
   //
   virtual __CLR_OR_THIS_CALL ~TException(void );
 #endif
-}
+////
+#endif
+};
 ////
 #ifdef _MSC_VER
 #pragma pack(pop)

@@ -2,7 +2,7 @@
 #define __FSPRECOMPILE_H__
 ////
 #if defined(__MINGW32__)
-   #define amg_Windows
+   #define __fsWindows
    #ifndef _WIN32_WINNT
       #define _WIN32_WINNT 0x0601
       #undef WINVER
@@ -16,7 +16,7 @@
       #endif
    #endif
 #elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-   #define amg_Windows
+   #define __fsWindows
    #ifndef _WIN32_WINNT
       #define _WIN32_WINNT 0x0601
       #undef WINVER
@@ -30,12 +30,17 @@
       #endif
    #endif
 #else
-   #define amg_Linux
+   #define __fsLinux
 #endif
 //////
 #include <iostream>
-#include <string>
+#include <stdio.h>
+#include <string.h>
 #include <exception>
+//
+#include "fsUnifException.h"
+////
+typedef unsigned char TByte;
 ////
 #ifdef _MSC_VER
 #pragma pack(push,8)

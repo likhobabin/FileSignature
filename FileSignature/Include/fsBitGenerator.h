@@ -9,18 +9,38 @@
 #pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
 #endif
 ////
-class TBitGenerator
+class TBuffer;
+//
+
+class TBitGenerator 
 {
 public:
-   TBitGenerator(unsigned int __FBitSize=0x400);//1024 byte
-
-   void inputData(void );
-   void outputData(void );
-
-   ~TBitGenerator(void );
+    static unsigned long stGetBitSize(void) 
+    {
+        return (stBitSize);
+    }
+    //*****************************************************//
+    TBitGenerator(void ); 
+    //
+    void doWrite(TByte __FData[], unsigned long /*__FLength*/);
+    //
+    const TBuffer& getBuffer(void) const 
+    {
+        return (FBuffer);
+    }
+    //
+    void doClose(void);
+    //
+    ~TBitGenerator(void);
 
 private:
-   const unsigned int FBitSize;
+    static const unsigned int stBitSize = 0x100000; //1048576 byte
+    TBuffer& FBuffer;
+    //
+    TBuffer& Buffer(void) 
+    {
+        return (FBuffer);
+    }
 };
 ////
 #ifdef _MSC_VER

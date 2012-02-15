@@ -1,5 +1,6 @@
 #include "fsPrecompile.h"
 //
+#include "fsBuffer.h"
 #include "fsBitGenerator.h"
 ////
 #ifdef __BORLANDC__
@@ -17,18 +18,23 @@
    #endif
 #endif
 /////
-TBitGenerator::TBitGenerator(unsigned int __FBitSize=0x400)://1024 byte
-   FBitSize(__FBitSize)
+TBitGenerator::TBitGenerator(void )://1024 byte
+   FBuffer(*(new TBuffer( TBitGenerator::stGetBitSize() )))
 {
 }
-
-void TBitGenerator::inputData(void )
+//
+void TBitGenerator::doWrite(TByte __FData[], unsigned long __FLength)
 {
+ Buffer().doFill(__FData, __FLength);
 }
-void TBitGenerator::outputData(void )
+//
+void TBitGenerator::doClose(void )
 {
+ Buffer().doClose();
 }
-
+//
 TBitGenerator::~TBitGenerator(void )
 {
+ doClose();
+ delete (&FBuffer);
 }
