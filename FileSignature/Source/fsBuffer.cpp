@@ -99,6 +99,6 @@ void TBuffer::Resize(unsigned long __FNewSize)
 void TBuffer::Fill(const TByte __FFillInData[], unsigned long __FSize)
 {
     TByte nullChar = '0';
-    memset(getData(), getSize(), nullChar);
-    memcpy(getData(), __FFillInData, getSize());
+    memset(getData(), __FSize, nullChar);
+    memcpy(getData(), __FFillInData, __FSize);
 }
