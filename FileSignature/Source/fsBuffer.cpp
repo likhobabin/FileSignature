@@ -83,7 +83,6 @@ void TBuffer::Resize(unsigned long __FNewSize)
         {
             FSize = __FNewSize;
             FData = newData;
-            memset(getData(), getSize(), nullChar);
         }
         else
         {
