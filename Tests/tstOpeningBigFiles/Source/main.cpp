@@ -21,6 +21,18 @@
 /////
 int main(int /*argc*/, const char** /*args*/)
 {
- 
+ try
+  {
+    std::string inputPath = "/home/user/Workspace/Programming/FileSignature/Tests/tstData/1.txt";
+    TDataFormer dataFormer;
+    //
+    dataFormer.doRead(inputPath);
+  }
+ catch(std::exception& )
+  {
+  }
+ catch(...)
+  {
+  }
  return(0);
 }

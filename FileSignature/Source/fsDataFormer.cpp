@@ -23,11 +23,11 @@ TDataFormer::TDataFormer(void ):
 {
 }
 //
-void doRead(const std::string& /*__FInputFilePath*/)
+void TDataFormer::doRead(const std::string& /*__FInputFilePath*/)
 {
 }
 //
-void doWrite(const std::string& /*__FOutputFilePath*/)
+void TDataFormer::doWrite(const std::string& /*__FOutputFilePath*/)
 {
 }
 //
