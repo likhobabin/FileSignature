@@ -73,7 +73,6 @@ void TBuffer::Resize(unsigned long __FNewSize)
 {
     if (__FNewSize > getSize())
     {
-        TByte nullChar = '0';
         TByte* newData = NULL;
         newData = new TByte[__FNewSize];
         //
