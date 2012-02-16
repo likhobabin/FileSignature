@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=tstOpeningBigFiles
+PROJECTNAME=tstEncoder_1
 
 # Active Configuration
 DEFAULTCONF=Debug

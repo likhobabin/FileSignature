@@ -51,20 +51,20 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../FileSignature/dist/Debug/GNU-Linux-x86 -lfilesignature
+LDLIBSOPTIONS=-L/usr/lib/i386-linux-gnu -L../../FileSignature/dist/Debug/GNU-Linux-x86 -lfilesignature -lcrypto
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstopeningbigfiles
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstencoder_1
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstopeningbigfiles: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstencoder_1: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstopeningbigfiles ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -O2 -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstencoder_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Source/main.o: Source/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -IInclude -I../../FileSignature/Include -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/main.o Source/main.cpp
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -I../../FileSignature/Include -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/main.o Source/main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -72,7 +72,7 @@ ${OBJECTDIR}/Source/main.o: Source/main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstopeningbigfiles
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tstencoder_1
 
 # Subprojects
 .clean-subprojects:

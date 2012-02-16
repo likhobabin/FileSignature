@@ -4,9 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Include/fsBitGenerator.h</itemPath>
+      <itemPath>Include/fsBitEncoder.h</itemPath>
       <itemPath>Include/fsBuffer.h</itemPath>
-      <itemPath>Include/fsDataFormer.h</itemPath>
+      <itemPath>Include/fsFileAgent.h</itemPath>
       <itemPath>Include/fsPrecompile.h</itemPath>
       <itemPath>Include/fsUnifException.h</itemPath>
     </logicalFolder>
@@ -17,9 +17,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Source/fsBitGenerator.cpp</itemPath>
+      <itemPath>Source/fsBitEncoder.cpp</itemPath>
       <itemPath>Source/fsBuffer.cpp</itemPath>
-      <itemPath>Source/fsDataFormer.cpp</itemPath>
+      <itemPath>Source/fsFileAgent.cpp</itemPath>
       <itemPath>Source/fsUnifException.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -48,6 +48,10 @@
             <pElem>.</pElem>
             <pElem>Include</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>__USE_FILE_OFFSET64</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
@@ -56,6 +60,10 @@
             <pElem>.</pElem>
             <pElem>Include</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>__USE_FILE_OFFSET64</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>

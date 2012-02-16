@@ -1,5 +1,5 @@
-#ifndef __FSBITGENERATOR_H__
-#define __FSBITGENERATOR_H__
+#ifndef __FSBITENCODER_H__
+#define __FSBITENCODER_H__
 ////
 #ifdef _MSC_VER
 #pragma pack(push,8)
@@ -11,8 +11,7 @@
 ////
 class TBuffer;
 //
-
-class TBitGenerator 
+class TBitEncoder 
 {
 public:
     static unsigned long stGetBitSize(void) 
@@ -20,9 +19,9 @@ public:
         return (stBitSize);
     }
     //*****************************************************//
-    TBitGenerator(void ); 
+    TBitEncoder(void ); 
     //
-    void doWrite(TByte __FData[], unsigned long /*__FLength*/);
+    void doEncode(const TByte __FInputData[], unsigned long /*__FLength*/);
     //
     const TBuffer& getBuffer(void) const 
     {
@@ -31,10 +30,10 @@ public:
     //
     void doClose(void);
     //
-    ~TBitGenerator(void);
+    ~TBitEncoder(void);
 
 private:
-    static const unsigned int stBitSize = 0x100000; //1048576 byte
+    static unsigned long stBitSize; //1048576 byte
     TBuffer& FBuffer;
     //
     TBuffer& Buffer(void) 

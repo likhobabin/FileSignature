@@ -20,7 +20,8 @@ public:
     {
         return(FSize);
     }
-    TByte* getData(void ) const 
+    //
+    const TByte* getData(void ) const
     {
         return(FData);
     }
@@ -40,6 +41,11 @@ private:
     void setSize(unsigned long __FNewSize)
     {
         FSize = __FNewSize;
+    }
+    //
+    TByte* getData(void )  
+    {
+        return(FData);
     }
 };
 ////

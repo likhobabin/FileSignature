@@ -34,10 +34,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Source/fsDataFormer.o \
+	${OBJECTDIR}/Source/fsFileAgent.o \
+	${OBJECTDIR}/Source/fsBitEncoder.o \
 	${OBJECTDIR}/Source/fsBuffer.o \
-	${OBJECTDIR}/Source/fsUnifException.o \
-	${OBJECTDIR}/Source/fsBitGenerator.o
+	${OBJECTDIR}/Source/fsUnifException.o
 
 
 # C Compiler Flags
@@ -66,10 +66,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a
 
-${OBJECTDIR}/Source/fsDataFormer.o: Source/fsDataFormer.cpp 
+${OBJECTDIR}/Source/fsFileAgent.o: Source/fsFileAgent.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsDataFormer.o Source/fsDataFormer.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
+
+${OBJECTDIR}/Source/fsBitEncoder.o: Source/fsBitEncoder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBitEncoder.o Source/fsBitEncoder.cpp
 
 ${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
@@ -80,11 +85,6 @@ ${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsUnifException.o Source/fsUnifException.cpp
-
-${OBJECTDIR}/Source/fsBitGenerator.o: Source/fsBitGenerator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Source
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBitGenerator.o Source/fsBitGenerator.cpp
 
 # Subprojects
 .build-subprojects:

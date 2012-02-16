@@ -37,6 +37,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <exception>
+#include <openssl/md5.h>
 //
 #include "fsUnifException.h"
 ////

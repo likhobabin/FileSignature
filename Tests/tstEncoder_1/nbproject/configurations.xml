@@ -41,6 +41,10 @@
             <pElem>Include</pElem>
             <pElem>../../FileSignature/Include</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>__USE_FILE_OFFSET64</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </cTool>
         <ccTool>
@@ -50,15 +54,22 @@
             <pElem>Include</pElem>
             <pElem>../../FileSignature/Include</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>__USE_FILE_OFFSET64</Elem>
+          </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <linkerAddLib>
+            <pElem>/usr/lib/i386-linux-gnu</pElem>
             <pElem>../../FileSignature/dist/Debug/GNU-Linux-x86</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>filesignature</linkerLibLibItem>
+            <linkerOptionItem>-lcrypto</linkerOptionItem>
           </linkerLibItems>
+          <commandLine>-O2</commandLine>
         </linkerTool>
       </compileType>
     </conf>

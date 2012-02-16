@@ -46,7 +46,7 @@ FSize(0x0L)
 
 void TBuffer::doFill(const TByte __FData[], unsigned long __FSize)
 {
-    if (__FSize > getSize())
+    if (__FSize != getSize())
         Resize(__FSize);
     //
     Fill(__FData, __FSize);
@@ -71,27 +71,24 @@ TBuffer::~TBuffer(void)
 //***************************//
 void TBuffer::Resize(unsigned long __FNewSize)
 {
-    if (__FNewSize > getSize())
+    TByte* newData = NULL;
+    newData = new TByte[__FNewSize];
+    //
+    TByte* oldData = getData();
+    //
+    if (NULL != newData)
     {
-        TByte* newData = NULL;
-        newData = new TByte[__FNewSize];
-        //
-        TByte* oldData = getData();
-        //
-        if (NULL != newData)
-        {
-            FSize = __FNewSize;
-            FData = newData;
-        }
-        else
-        {
-            FSize = 0x0;
-            FData = NULL;
-        }
-        //
-        delete[] oldData;
-        oldData = NULL;
+        FSize = __FNewSize;
+        FData = newData;
     }
+    else
+    {
+        FSize = 0x0;
+        FData = NULL;
+    }
+    //
+    delete[] oldData;
+    oldData = NULL;
 }
 //
 void TBuffer::Fill(const TByte __FFillInData[], unsigned long __FSize)
