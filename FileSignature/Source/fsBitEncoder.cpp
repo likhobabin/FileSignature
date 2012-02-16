@@ -27,26 +27,22 @@ FBuffer(*(new TBuffer( )))
 
 void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long __FLength)
 {
-    //printf("\nDebug TBitEncoder::doEncode [%ld] <= [__FLength]; [%ld] <= [Default Size]\n", 
-    //       __FLength, TBitEncoder::stGetBitSize());
+
     MD5_CTX md5Encoder;
-    if (1 != MD5_Init(&md5Encoder))
-        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,)  ]");
+    //
+    if(1 != MD5_Init(&md5Encoder))
+       throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,)  ]");
     //
     TByte md5[MD5_DIGEST_LENGTH];
     unsigned long encodeBuffLength = MD5_DIGEST_LENGTH;
-    TByte* encodeValue = NULL;
     //
-    //printf("\nDebug TBitEncoder::doEncode [%ld] <= [__FLength]; [%ld] <= [Default Size]\n", 
-    //       __FLength, TBitEncoder::stGetBitSize()); 
-    //
-    encodeValue = MD5(__FInputData, __FLength, md5);
-    //printf("\nDebug TBitEncoder::doEncode [%s] <= [encodeValue]\n", encodeValue);
-    //
-    Buffer().doFill(md5, encodeBuffLength);
+    if(1 != MD5_Update(&md5Encoder, __FInputData, __FLength))
+        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,)  ]");
     //
     if (1 != MD5_Final(md5, &md5Encoder))
-        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,)  ]");
+      throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,)  ]");
+    //
+    Buffer().doFill(md5, encodeBuffLength);
 }
 //
 

@@ -30,19 +30,19 @@ FEncoder(*(new TBitEncoder()))
 //
 
 void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::string& __FOutputFilePath)
-{{
+{
     FInputFilePath = __FInputFilePath;
     FOutputFilePath = __FOutputFilePath;
     //
     FILE* ptrReadFile = NULL;
     FILE* ptrWriteFile = NULL;
     //
-    ptrReadFile = fopen64(inPutPath().c_str(), "r+b");
+    ptrReadFile = fopen64(inPutPath().c_str(), "rb");
     if (NULL == ptrReadFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrReadFile = fopen(...) ]");
     FInputFlSize = stFileSize(ptrReadFile);
     //
-    ptrWriteFile = fopen64(outPutPath().c_str(), "w+b");
+    ptrWriteFile = fopen64(outPutPath().c_str(), "ab+");
     if (NULL == ptrWriteFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrWriteFile = fopen(...) ]");
     //
@@ -84,7 +84,7 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     //
     fclose(ptrReadFile);
     ptrReadFile = NULL;
-}}
+}
 //
 
 TFileAgent::~TFileAgent(void)
