@@ -23,7 +23,7 @@
 TFileAgent::TFileAgent(long int __FEncBitSize) :
 FInputFilePath("InputFilePath::Unknown"),
 FOutputFilePath("OutputFilePath::Unknown"),
-FInputFlSize(0x0L),
+FInputFlSize(0x0LL),
 FEncoder(*(new TBitEncoder(__FEncBitSize)))
 {
 }
