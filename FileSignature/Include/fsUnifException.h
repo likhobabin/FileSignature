@@ -14,7 +14,7 @@ class TException : public std::exception
 public:
 #ifdef __fsLinux
 ////
-  TException(void );
+  TException(void ) throw();
   TException(const char* );
   TException(const std::string& );
   TException(const TException& );

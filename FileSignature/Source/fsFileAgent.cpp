@@ -20,11 +20,11 @@
 #endif
 //
 
-TFileAgent::TFileAgent(void) :
+TFileAgent::TFileAgent(long int __FEncBitSize):
 FInputFilePath("InputFilePath::Unknown"),
 FInputFlSize(0x0L),
 FOutputFilePath("OutputFilePath::Unknown"),
-FEncoder(*(new TBitEncoder()))
+FEncoder(*(new TBitEncoder(__FEncBitSize)))
 {
 }
 //
@@ -37,7 +37,7 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     FILE* ptrReadFile = NULL;
     FILE* ptrWriteFile = NULL;
     //
-    ptrReadFile = fopen64(inPutPath().c_str(), "rb");
+    ptrReadFile = fopen64(inPutPath().c_str(), "rb+");
     if (NULL == ptrReadFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrReadFile = fopen(...) ]");
     FInputFlSize = stFileSize(ptrReadFile);
@@ -46,29 +46,30 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     if (NULL == ptrWriteFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrWriteFile = fopen(...) ]");
     //
-    printf("\nDebug TFileAgent::doGenerate [%d] <= [Byte Size]\n", sizeof (TByte));
     off64_t itQuantity = inPutFileSizeByte() / sizeof (TByte);
-    printf("\nDebug TFileAgent::doGenerate [%lld] <= [Iterator Quantity]\n", itQuantity);
+    //
+    printf("\nDebug TFileAgent::doGenerate [ %ld ] <= [Encoder Bit Size]\n", TBitEncoder::stGetBitSize());
+    printf("\nDebug TFileAgent::doGenerate [ %d ] <= [TByte Size]\n", sizeof (TByte));
+    printf("\nDebug TFileAgent::doGenerate [ Started Job... ] <= [File Agent]\n");
     //
     bool bDataDry = false;
-    for (off64_t idx = 0x0LL; itQuantity > idx && !bDataDry; idx++)
+    off64_t idx = 0x0LL;
+    //
+    for ( ; itQuantity > idx && !bDataDry; idx++)
     {
         TByte nullChar = '0';
         TByte buffer[TBitEncoder::stGetBitSize()];
-        memset(buffer, TBitEncoder::stGetBitSize(), nullChar);
+        memset(buffer,  nullChar, TBitEncoder::stGetBitSize());
         //
         if (0 == fread(buffer, sizeof (TByte), TBitEncoder::stGetBitSize(), ptrReadFile))
             bDataDry = true;
         else
         { 
-            //printf("\nDebug TFileAgent::doGenerate [%ld] <= [Default Size]\n", 
-            //       TBitEncoder::stGetBitSize());
-            FEncoder.doEncode(buffer, TBitEncoder::stGetBitSize());
+            encoder().doEncode(buffer, (unsigned long int)(TBitEncoder::stGetBitSize()));
             //
             const TByte* encodedBuff = NULL;
             encodedBuff = encoder().getBuffer().getData();
-            unsigned long encodedBuffSize = encoder().getBuffer().getSize();
-            printf("[ %s ]\n\t", encodedBuff);
+            unsigned long int encodedBuffSize = encoder().getBuffer().getSize();
             //
             if (encodedBuffSize != fwrite(encodedBuff, sizeof (TByte),
                                                        encodedBuffSize,

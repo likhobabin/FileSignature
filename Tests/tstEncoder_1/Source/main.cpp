@@ -5,80 +5,114 @@
 #include <fsFileAgent.h>
 ////
 #ifdef __BORLANDC__
-   #pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
+#pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
 #endif
 //
 #ifdef _MSC_VER
-   #pragma pack(8)
-   #pragma warning(disable:4355)
-   #ifdef min
-      #undef min
-   #endif
-   #ifdef max
-      #undef max
-   #endif
+#pragma pack(8)
+#pragma warning(disable:4355)
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
 #endif
 //
-static void debugArguments(int /*__argc*/, const char* __args[]);
 static void checkArgQuantity(int /*__argc*/);
 static void extractInputPath(const char* __args[], std::string& /*__inputPath*/);
 static void extractOutputPath(const char* __args[], std::string& /*__outputPath*/);
+static void extractBitSize(const char* __args[], long int& /*__bitSize*/);
+static void debugArguments(int /*__argc*/, const char* __args[]);
 /////
+
 int main(int argc, const char* args[])
 {
- try
-  {
-    debugArguments(argc, args);
-    //
-    checkArgQuantity(argc);
-    //
-    std::string inputPath("");
-    std::string outputPath("");
-    //
-    extractInputPath(args, inputPath);
-    extractOutputPath(args, outputPath);
-    //
-    TFileAgent fileAgent;
-    //
-    fileAgent.doGenerate(inputPath, outputPath);
-    printf("\n\nDebug [ %lld ] <= [ Input File Size Byte ]\n", 
-           fileAgent.inPutFileSizeByte());
-  }
- catch(std::exception& ex)
-  {
-     printf("\nDebug std::exception [%s] <= [Description]\n", ex.what());
-  }
- catch(...)
-  {
-     printf("\nDebug unexpected exception \n");
-  }
- return(0);
+    try
+    {
+        checkArgQuantity(argc);
+        //
+        std::string inputPath("");
+        std::string outputPath("");
+        //
+        extractInputPath(args, inputPath);
+        extractOutputPath(args, outputPath);
+        //
+        long int bitSize = 0x0L;
+        extractBitSize(args, bitSize);
+        //
+        printf("\n*****Debug main [ MD5 Of OpenSSL] <= [ Hash Algorithm Representation ]****\n\n");
+        //
+        debugArguments(argc, args);
+        //
+        TFileAgent fileAgent(bitSize);
+        //
+        fileAgent.doGenerate(inputPath, outputPath);
+        //
+        printf("\nDebug [***The End***] <= [ File Agent finished job ] =)\n");
+    }
+    catch (std::exception& ex)
+    {
+        printf("\nDebug std::exception [%s] \n", ex.what());
+    }
+    catch (...)
+    {
+        printf("\nDebug unexpected exception \n");
+    }
+    return (0);
 }
 //**************************************************************************************************//
-static void debugArguments(int __argc, const char* __args[])
-{
-    printf("Debug debugArguments List Arguments \n\t");
-    for(int idx=0x0; __argc > idx; idx++)
-    {
-        printf("Debug debugArguments [ %d ] <= [ %s ]\n\t", idx, __args[idx]);
-    }
-}
-//
+
 static void checkArgQuantity(int __argc)
 {
-    const int correctArgQuantity=3;
-    if(correctArgQuantity != __argc)
+    const int correctArgQuantity = 4;
+    if (correctArgQuantity != __argc)
         throw TException("Error chechArgs [ incorrect argument quantity ]");
 }
 ///
+
 static void extractInputPath(const char* __args[], std::string& __inputPath)
 {
-    unsigned int argIdx = 1;
+    const unsigned int argIdx = 1;
     __inputPath = __args[argIdx];
 }
 //
+
 static void extractOutputPath(const char* __args[], std::string& __outputPath)
 {
-    unsigned int argIdx = 2;
+    const unsigned int argIdx = 2;
     __outputPath = __args[argIdx];
+}
+//
+
+static void extractBitSize(const char* __args[], long int& __bitSize)
+{
+    const unsigned int argIdx = 3;
+    const char* convertStr = __args[argIdx];
+    //
+    __bitSize = atol(convertStr);
+    //
+    if ((LONG_MAX == __bitSize) || (LONG_MIN == __bitSize))
+        throw TException("Error extractBitSize [value is out of the range of representable values] <= [ Input Bit Size]");
+    //
+    if (0x0L >= __bitSize)
+        throw TException("Error extractBitSize [no valid conversion could be performed] <= [Input Bit Size]");
+    //   
+}
+//
+
+static void debugArguments(int __argc, const char* __args[])
+{
+    const int nfArgQuantity = 4;
+    //
+    if (__argc == nfArgQuantity)
+    {
+        printf("Debug debugArguments List Arguments \
+            \n\t[ %s ] <= [ Input File Path ] \
+            \n\t[ %s ] <= [ Output File Path ] \
+            \n\t[ %s ] <= [ Size Of Input Bit Of Hash Func ]\n",
+               __args[1],
+               __args[2],
+               __args[3]);
+    }
 }

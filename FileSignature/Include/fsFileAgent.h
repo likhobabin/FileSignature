@@ -14,7 +14,8 @@ class TBitEncoder;
 
 class TFileAgent {
 public:
-    TFileAgent(void);
+    //max bit size of encoder = 2147483647 byte
+    TFileAgent(long int __FEncBitSize=0x100000L); //1048576 byte 
     //
     std::string inPutPath(void ) const 
     {
@@ -46,6 +47,11 @@ private:
     //
     std::string FOutputFilePath;
     TBitEncoder& FEncoder;
+    //
+    TBitEncoder& encoder(void ) 
+    {
+        return(FEncoder);
+    }
     //************************************************
     static off64_t stFileSize(FILE* /*__FOpenedFile*/);
 };

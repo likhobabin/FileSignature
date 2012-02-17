@@ -18,7 +18,7 @@
 #endif
 ////
 #ifdef __fsLinux
-   TException::TException(void ):
+   TException::TException(void ) throw():
 #else
    __CLR_OR_THIS_CALL TException::TException(void ):
 #endif

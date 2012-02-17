@@ -34,9 +34,11 @@
 #endif
 //////
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
 #include <exception>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 #include <openssl/md5.h>
 //
 #include "fsUnifException.h"

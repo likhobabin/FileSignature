@@ -14,33 +14,41 @@ class TBuffer;
 class TBitEncoder 
 {
 public:
-    static unsigned long stGetBitSize(void) 
+    static long int stGetBitSize(void) 
     {
         return (stBitSize);
     }
     //*****************************************************//
-    TBitEncoder(void ); 
+    //max bit size = 2147483647 byte
+    TBitEncoder(long int __FBitSize=0x100000L); //1048576 byte
     //
-    void doEncode(const TByte __FInputData[], unsigned long /*__FLength*/);
+    void doEncode(const TByte __FInputData[], unsigned long int /*__FLength*/);
     //
     const TBuffer& getBuffer(void) const 
     {
         return (FBuffer);
     }
     //
-    void doClose(void);
-    //
     ~TBitEncoder(void);
 
 private:
-    static unsigned long stBitSize; //1048576 byte
+    static long int stBitSize;
     TBuffer& FBuffer;
     //
     TBuffer& Buffer(void) 
     {
         return (FBuffer);
     }
+    //******************************************
+    static void stSetBitSize(long int __stBitSize)
+    {
+        if(0x0L < __stBitSize)
+        {
+            stBitSize = __stBitSize;
+        }
+    }
 };
+
 ////
 #ifdef _MSC_VER
 #pragma pack(pop)

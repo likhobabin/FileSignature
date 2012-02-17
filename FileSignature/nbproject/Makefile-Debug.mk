@@ -69,22 +69,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a: ${OBJECTFILES}
 ${OBJECTDIR}/Source/fsFileAgent.o: Source/fsFileAgent.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
 
 ${OBJECTDIR}/Source/fsBitEncoder.o: Source/fsBitEncoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBitEncoder.o Source/fsBitEncoder.cpp
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBitEncoder.o Source/fsBitEncoder.cpp
 
 ${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffer.o Source/fsBuffer.cpp
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffer.o Source/fsBuffer.cpp
 
 ${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D__USE_FILE_OFFSET64 -D_FILE_OFFSET_BITS=64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsUnifException.o Source/fsUnifException.cpp
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsUnifException.o Source/fsUnifException.cpp
 
 # Subprojects
 .build-subprojects:

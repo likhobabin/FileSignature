@@ -13,10 +13,10 @@ class TBuffer
 {
 public:
     TBuffer(void);
-    TBuffer(const TByte data[], unsigned long /*__FSize*/);
-    TBuffer(unsigned long /*__FSize*/);
+    TBuffer(const TByte data[], unsigned long int /*__FSize*/);
+    TBuffer(unsigned long int /*__FSize*/);
     ///
-    unsigned long getSize(void ) const 
+    unsigned long int getSize(void ) const 
     {
         return(FSize);
     }
@@ -26,19 +26,18 @@ public:
         return(FData);
     }
     //
-    void doFill(const TByte data[], unsigned long /*__FSize*/);
-    void doClose(void );
+    void doFill(const TByte data[], unsigned long int /*__FSize*/);
     ///    
     ~TBuffer(void);
     
 private:
     TByte* FData; 
-    unsigned long FSize;
+    unsigned long int FSize;
     //
-    void Resize(unsigned long /*__FSize*/);
-    void Fill(const TByte __FFillInData[], unsigned long /*__FSize*/);
+    void Resize(unsigned long int /*__FSize*/);
+    void Fill(const TByte __FFillInData[], unsigned long int /*__FSize*/);
     //
-    void setSize(unsigned long __FNewSize)
+    void setSize(unsigned long int __FNewSize)
     {
         FSize = __FNewSize;
     }
@@ -47,6 +46,8 @@ private:
     {
         return(FData);
     }
+    //
+    void doClose(void );
 };
 ////
 #ifdef _MSC_VER
