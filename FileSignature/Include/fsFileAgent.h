@@ -54,6 +54,8 @@ private:
     }
     //************************************************
     static off64_t stFileSize(FILE* /*__FOpenedFile*/);
+    //
+    static void stCloseFile(FILE* __FCloseFile = NULL);
 };
 ////
 #ifdef _MSC_VER

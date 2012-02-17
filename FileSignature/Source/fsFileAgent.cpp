@@ -37,14 +37,17 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     FILE* ptrReadFile = NULL;
     FILE* ptrWriteFile = NULL;
     //
-    ptrReadFile = fopen64(inPutPath().c_str(), "rb+");
+    ptrReadFile = fopen64(inPutPath().c_str(), "rb");
     if (NULL == ptrReadFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrReadFile = fopen(...) ]");
     FInputFlSize = stFileSize(ptrReadFile);
     //
-    ptrWriteFile = fopen64(outPutPath().c_str(), "ab+");
+    ptrWriteFile = fopen64(outPutPath().c_str(), "wb");
     if (NULL == ptrWriteFile)
+    {
+        stCloseFile(ptrReadFile);
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrWriteFile = fopen(...) ]");
+    }
     //
     off64_t itQuantity = inPutFileSizeByte() / sizeof (TByte);
     //
@@ -75,16 +78,16 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
                                           encodedBuffSize,
                                           ptrWriteFile))
             {
+                stCloseFile(ptrReadFile);
+                stCloseFile(ptrWriteFile);
                 throw TException("Error TFileAgent::doGenerate [ FAILED ] <= [ fwrite ]");
             }
         }
     }
     //
-    fclose(ptrWriteFile);
-    ptrWriteFile = NULL;
+    stCloseFile(ptrWriteFile);
     //
-    fclose(ptrReadFile);
-    ptrReadFile = NULL;
+    stCloseFile(ptrReadFile);
 }
 //
 
@@ -105,4 +108,14 @@ off64_t TFileAgent::stFileSize(FILE* __FOpenedFile)
     fseeko64(__FOpenedFile, 0x0L, SEEK_SET);
     ///
     return (outSize);
+}
+//
+
+void TFileAgent::stCloseFile(FILE* __FCloseFile)
+{
+    if (NULL != __FCloseFile)
+    {
+        fclose(__FCloseFile);
+        __FCloseFile = NULL;
+    }
 }
