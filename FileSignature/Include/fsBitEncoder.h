@@ -32,7 +32,6 @@ public:
     ~TBitEncoder(void);
 
 private:
-    static long int stBitSize;
     TBuffer& FBuffer;
     //
 
@@ -40,6 +39,8 @@ private:
         return (FBuffer);
     }
     //******************************************
+    static long int stBitSize;
+    //
 
     static void stSetBitSize(long int __stBitSize) {
         if (0x0L < __stBitSize) {
