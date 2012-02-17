@@ -21,35 +21,33 @@
 //
 
 TFileAgent::TFileAgent(long int __FEncBitSize) :
-FInputFilePath("InputFilePath::Unknown"),
-FOutputFilePath("OutputFilePath::Unknown"),
-FInputFlSize(0x0LL),
-FEncoder(*(new TBitEncoder(__FEncBitSize)))
+IFileAgent(__FEncBitSize)
 {
 }
 //
 
 void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::string& __FOutputFilePath)
 {
-    FInputFilePath = __FInputFilePath;
-    FOutputFilePath = __FOutputFilePath;
+    IFileAgent::setInputFilePath(__FInputFilePath);
+    IFileAgent::setOutputFilePath(__FOutputFilePath);
     //
     FILE* ptrReadFile = NULL;
     FILE* ptrWriteFile = NULL;
     //
-    ptrReadFile = fopen64(inPutPath().c_str(), "rb");
+    ptrReadFile = fopen64(IFileAgent::getInputFilePath().c_str(), "rb");
     if (NULL == ptrReadFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrReadFile = fopen(...) ]");
-    FInputFlSize = stFileSize(ptrReadFile);
     //
-    ptrWriteFile = fopen64(outPutPath().c_str(), "wb");
+    IFileAgent::setInputFileSize(stFileSize(ptrReadFile));
+    //
+    ptrWriteFile = fopen64(IFileAgent::getOutputFilePath().c_str(), "wb");
     if (NULL == ptrWriteFile)
     {
         stCloseFile(ptrReadFile);
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrWriteFile = fopen(...) ]");
     }
     //
-    off64_t itQuantity = inPutFileSizeByte() / sizeof (TByte);
+    off64_t itQuantity = IFileAgent::getInputFileSize() / sizeof (TByte);
     //
     printf("\nDebug TFileAgent::doGenerate [ %ld ] <= [Encoder Bit Size]\n", TBitEncoder::stGetBitSize());
     printf("\nDebug TFileAgent::doGenerate [ %d ] <= [TByte Size]\n", sizeof (TByte));
@@ -71,7 +69,7 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
             encoder().doEncode(buffer, (unsigned long int) (TBitEncoder::stGetBitSize()));
             //
             const TByte* encodedBuff = NULL;
-            encodedBuff = encoder().getBuffer().getData();
+            encodedBuff = IFileAgent::encoder().getBuffer().getData();
             unsigned long int encodedBuffSize = encoder().getBuffer().getSize();
             //
             if (encodedBuffSize != fwrite(encodedBuff, sizeof (TByte),
@@ -93,7 +91,6 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
 
 TFileAgent::~TFileAgent(void)
 {
-    delete(&FEncoder);
 }
 //******************************************************//
 

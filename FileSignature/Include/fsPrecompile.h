@@ -37,6 +37,7 @@
 #include <exception>
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <string.h>
 #include <limits.h>
 #include <openssl/md5.h>

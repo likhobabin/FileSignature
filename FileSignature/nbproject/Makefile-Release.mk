@@ -35,9 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Source/fsFileAgent.o \
+	${OBJECTDIR}/Source/fsIFileAgent.o \
+	${OBJECTDIR}/Source/fsFileAgentThr.o \
 	${OBJECTDIR}/Source/fsBitEncoder.o \
+	${OBJECTDIR}/Source/fsMutex.o \
 	${OBJECTDIR}/Source/fsBuffer.o \
-	${OBJECTDIR}/Source/fsUnifException.o
+	${OBJECTDIR}/Source/fsUnifException.o \
+	${OBJECTDIR}/Source/fsBuffWriteThread.o \
+	${OBJECTDIR}/Source/fsBuffThread.o
 
 
 # C Compiler Flags
@@ -71,10 +76,25 @@ ${OBJECTDIR}/Source/fsFileAgent.o: Source/fsFileAgent.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
 
+${OBJECTDIR}/Source/fsIFileAgent.o: Source/fsIFileAgent.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsIFileAgent.o Source/fsIFileAgent.cpp
+
+${OBJECTDIR}/Source/fsFileAgentThr.o: Source/fsFileAgentThr.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgentThr.o Source/fsFileAgentThr.cpp
+
 ${OBJECTDIR}/Source/fsBitEncoder.o: Source/fsBitEncoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBitEncoder.o Source/fsBitEncoder.cpp
+
+${OBJECTDIR}/Source/fsMutex.o: Source/fsMutex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsMutex.o Source/fsMutex.cpp
 
 ${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
@@ -85,6 +105,16 @@ ${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsUnifException.o Source/fsUnifException.cpp
+
+${OBJECTDIR}/Source/fsBuffWriteThread.o: Source/fsBuffWriteThread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffWriteThread.o Source/fsBuffWriteThread.cpp
+
+${OBJECTDIR}/Source/fsBuffThread.o: Source/fsBuffThread.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffThread.o Source/fsBuffThread.cpp
 
 # Subprojects
 .build-subprojects:
