@@ -1,6 +1,7 @@
 #include "fsPrecompile.h"
 //
 #include "fsBitEncoder.h"
+#include "fsIFileAgent.h"
 #include "fsFileAgent.h"
 #include "fsBuffer.h"
 ////

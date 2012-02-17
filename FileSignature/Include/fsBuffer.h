@@ -27,7 +27,7 @@ public:
     }
     //
     void doFill(const TByte data[], unsigned long int /*__FSize*/);
-    void doClear(void );
+    void doClear(void);
     ///    
     ~TBuffer(void);
 

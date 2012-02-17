@@ -15,7 +15,7 @@ class TMutex;
 
 class TBuffThread {
 public:
-    TBuffThread(TMutex& );
+    TBuffThread(TMutex&);
     //
     void doStart(TBuffer* /*__FPtrThreadArg*/);
     //
@@ -41,24 +41,22 @@ protected:
         return (FSharedBuffer);
     }
     //
-    
-    TMutex& mutex(void )
-    {
-        return(FMutex);
+
+    TMutex& mutex(void) {
+        return (FMutex);
     }
     //
-    
-    const TMutex& mutex(void ) const
-    {
-        return(FMutex);
+
+    const TMutex& mutex(void) const {
+        return (FMutex);
     }
     //
-    void join(void )
-    {
+
+    void join(void) {
         pthread_join(FThreadId, NULL);
     }
     //**********************************************
-    static void*  stStartPoint(void* /*__FPtrThreadArg*/);
+    static void* stStartPoint(void* /*__FPtrThreadArg*/);
 
 private:
     pthread_t FThreadId;

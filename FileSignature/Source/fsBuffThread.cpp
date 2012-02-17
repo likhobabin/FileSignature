@@ -19,7 +19,7 @@
 #endif
 //
 
-TBuffThread::TBuffThread(TMutex& __FMutex):
+TBuffThread::TBuffThread(TMutex& __FMutex) :
 FSharedBuffer(NULL),
 FMutex(__FMutex)
 {
@@ -33,7 +33,7 @@ void TBuffThread::doStart(TBuffer* __FSharedBuffer)
     int retResult = 0x0;
     //
     retResult = pthread_create(&FThreadId, NULL, TBuffThread::stStartPoint,
-                               reinterpret_cast<void* >(this));
+                               reinterpret_cast<void*> (this));
     if (0 != retResult)
         throw TException("Error TBuffThread::Start [FAILED] <= [pthread_create(...)]");
 }
@@ -44,7 +44,8 @@ TBuffThread::~TBuffThread(void)
     join();
 }
 //
-void TBuffThread::run(void )
+
+void TBuffThread::run(void)
 {
     setUp();
     execute();
@@ -53,10 +54,10 @@ void TBuffThread::run(void )
 
 void* TBuffThread::stStartPoint(void* __FPtrOnItselfThr)
 {
-    TBuffThread* runThread = static_cast<TBuffThread* >(__FPtrOnItselfThr);
-    if(NULL != runThread)
+    TBuffThread* runThread = static_cast<TBuffThread*> (__FPtrOnItselfThr);
+    if (NULL != runThread)
     {
         runThread->run();
     }
-    return(NULL);
+    return (NULL);
 }

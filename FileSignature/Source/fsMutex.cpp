@@ -29,7 +29,7 @@ TMutex::TMutex(void)
 bool TMutex::doLock(void)
 {
     if (0x0 != pthread_mutex_lock(&stMutexCount));
-        return (false);
+    return (false);
     ////
     return (true);
 }
@@ -37,7 +37,7 @@ bool TMutex::doLock(void)
 bool TMutex::doUnlock(void)
 {
     if (0x0 != pthread_mutex_unlock(&stMutexCount));
-        return (false);
+    return (false);
     ////
     return (true);
 }
@@ -45,19 +45,19 @@ bool TMutex::doUnlock(void)
 
 bool TMutex::doWait()
 {
-    if(0x0 != pthread_cond_wait(&stConditionId, &stMutexCount))
-        return(false);
+    if (0x0 != pthread_cond_wait(&stConditionId, &stMutexCount))
+        return (false);
     ////
-    return(true);
+    return (true);
 }
 //
 
 bool TMutex::doSignal(void)
 {
-    if(0x0 != pthread_cond_signal(&stConditionId))
-        return(false);
+    if (0x0 != pthread_cond_signal(&stConditionId))
+        return (false);
     ////
-    return(true);
+    return (true);
 }
 
 TMutex::~TMutex(void)

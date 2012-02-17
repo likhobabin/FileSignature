@@ -12,20 +12,20 @@
 ////
 class TBuffThread;
 //
-class TBuffWriteThread : public TBuffThread
-{
+
+class TBuffWriteThread : public TBuffThread {
 public:
     TBuffWriteThread(std::string /*__FReadFilePath*/, TMutex& /*__FMutex*/);
-    
-    ~TBuffWriteThread(void );
+
+    ~TBuffWriteThread(void);
 
 protected:
-    virtual void setUp(void )
-    {
+
+    virtual void setUp(void) {
     }
     //
-    virtual void execute(void )
-    {
+
+    virtual void execute(void) {
     }
 
 private:

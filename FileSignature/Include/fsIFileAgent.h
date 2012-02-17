@@ -11,56 +11,57 @@
 ////
 class TBitEncoder;
 //
+
 class IFileAgent {
 public:
     //max bit size of encoder = 2147483647 byte
     IFileAgent(long int __FEncBitSize = 0x100000L); //1048576 byte 
     //
     virtual void doGenerate(const std::string& /*__FInputFilePath*/,
-            const std::string& /*__FOutputFilePath*/) =0;
+            const std::string& /*__FOutputFilePath*/) = 0;
     //
-    off64_t getInputFileSize(void ) const 
-    {
-        return(FInputFlSize);
+
+    off64_t getInputFileSize(void) const {
+        return (FInputFlSize);
     }
     //
-    std::string getInputFilePath(void) const 
-    {
-        return(FInputFilePath);
+
+    std::string getInputFilePath(void) const {
+        return (FInputFilePath);
     }
-    std::string getOutputFilePath(void) const 
-    {
-        return(FOutputFilePath);
+
+    std::string getOutputFilePath(void) const {
+        return (FOutputFilePath);
     }
     //
-    virtual ~IFileAgent(void );
-    
+    virtual ~IFileAgent(void);
+
 protected:
-    void setInputFilePath(const std::string& __FInputFilePath) 
-    {
+
+    void setInputFilePath(const std::string& __FInputFilePath) {
         FInputFilePath = __FInputFilePath;
     }
     //
-    void setOutputFilePath(const std::string& __FOutputFilePath) 
-    {
+
+    void setOutputFilePath(const std::string& __FOutputFilePath) {
         FOutputFilePath = __FOutputFilePath;
     }
     //
-    void setInputFileSize(off64_t __FInputFlSize)
-    {
+
+    void setInputFileSize(off64_t __FInputFlSize) {
         FInputFlSize = __FInputFlSize;
     }
     //
-    TBitEncoder& encoder(void )  
-    {
-        return(FEncoder);
+
+    TBitEncoder& encoder(void) {
+        return (FEncoder);
     }
     //
-    const TBitEncoder& encoder(void ) const 
-    {
-        return(FEncoder);
+
+    const TBitEncoder& encoder(void) const {
+        return (FEncoder);
     }
-    
+
 private:
     std::string FInputFilePath;
     std::string FOutputFilePath;

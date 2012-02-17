@@ -53,18 +53,18 @@ void TBuffer::doFill(const TByte __FData[], unsigned long int __FSize)
 }
 ///
 
-void TBuffer::doClear(void )
+void TBuffer::doClear(void)
 {
-    if(0x0L != getSize())
+    if (0x0L != getSize())
     {
-        TByte* oldData=NULL;
+        TByte* oldData = NULL;
         //
         oldData = FData;
-        FData=NULL;
+        FData = NULL;
         setSize(0x0L);
         //
         delete[] oldData;
-        oldData=NULL;
+        oldData = NULL;
     }
 }
 ///

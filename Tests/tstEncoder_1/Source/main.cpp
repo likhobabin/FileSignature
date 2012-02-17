@@ -2,6 +2,7 @@
 //
 #include <fsBuffer.h>
 #include <fsBitEncoder.h>
+#include <fsIFileAgent.h>
 #include <fsFileAgent.h>
 ////
 #ifdef __BORLANDC__

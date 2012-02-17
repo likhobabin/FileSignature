@@ -9,15 +9,15 @@
 #pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
 #endif
 ////
-class TFileAgentThr : public IFileAgent
-{
+
+class TFileAgentThr : public IFileAgent {
     //max bit size of encoder = 2147483647 byte
     TFileAgentThr(long int __FEncBitSize = 0x100000L); //1048576 byte 
     //
-    
+
     virtual void doGenerate(const std::string& /*__FInputFilePath*/,
-                            const std::string& /*__FOutputFilePath*/);
-    
+            const std::string& /*__FOutputFilePath*/);
+
     //
     ~TFileAgentThr(void);
 

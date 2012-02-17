@@ -20,13 +20,14 @@
 #endif
 #endif
 //
+
 TFileAgentThr::TFileAgentThr(long int __FEncBitSize) :
 IFileAgent(__FEncBitSize)
 {
 }
 //
 
-void TFileAgentThr::doGenerate(const std::string& /*__FInputFilePath*/, 
+void TFileAgentThr::doGenerate(const std::string& /*__FInputFilePath*/,
                                const std::string& /*__FOutputFilePath*/)
 {
 }
