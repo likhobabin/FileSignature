@@ -53,7 +53,7 @@ void TBuffer::doFill(const TByte __FData[], unsigned long int __FSize)
 }
 //
 
-void TBuffer::doClose(void)
+void TBuffer::Close(void)
 {
     if (NULL != FData)
     {
@@ -64,7 +64,7 @@ void TBuffer::doClose(void)
 ///    
 TBuffer::~TBuffer(void)
 {
-    doClose();
+    Close();
 }
 //***************************//
 void TBuffer::Resize(unsigned long int __FNewSize)

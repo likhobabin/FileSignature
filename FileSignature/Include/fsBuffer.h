@@ -47,7 +47,7 @@ private:
         return(FData);
     }
     //
-    void doClose(void );
+    void Close(void );
 };
 ////
 #ifdef _MSC_VER
