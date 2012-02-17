@@ -35,7 +35,7 @@ void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long int __FLeng
     //
     if (1 != MD5_Init(&md5Encoder))
     {
-        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,) ]");
+        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(...) ]");
     }
     //
     TByte md5[MD5_DIGEST_LENGTH];
@@ -43,7 +43,7 @@ void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long int __FLeng
     //
     if (1 != MD5_Update(&md5Encoder, __FInputData, __FLength))
     {
-        std::string errDescr("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Update(..,) ");
+        std::string errDescr("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Update(...) ");
         //
         if (1 != MD5_Final(md5, &md5Encoder))
         {
@@ -58,7 +58,7 @@ void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long int __FLeng
     }
     //
     if (1 != MD5_Final(md5, &md5Encoder))
-        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,)  ]");
+        throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(...)  ]");
     //
     Buffer().doFill(md5, encodeBuffLength);
 }
