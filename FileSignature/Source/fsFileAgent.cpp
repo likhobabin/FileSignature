@@ -20,10 +20,10 @@
 #endif
 //
 
-TFileAgent::TFileAgent(long int __FEncBitSize):
+TFileAgent::TFileAgent(long int __FEncBitSize) :
 FInputFilePath("InputFilePath::Unknown"),
-FInputFlSize(0x0L),
 FOutputFilePath("OutputFilePath::Unknown"),
+FInputFlSize(0x0L),
 FEncoder(*(new TBitEncoder(__FEncBitSize)))
 {
 }
@@ -55,25 +55,25 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     bool bDataDry = false;
     off64_t idx = 0x0LL;
     //
-    for ( ; itQuantity > idx && !bDataDry; idx++)
+    for (; itQuantity > idx && !bDataDry; idx++)
     {
         TByte nullChar = '0';
         TByte buffer[TBitEncoder::stGetBitSize()];
-        memset(buffer,  nullChar, TBitEncoder::stGetBitSize());
+        memset(buffer, nullChar, TBitEncoder::stGetBitSize());
         //
         if (0 == fread(buffer, sizeof (TByte), TBitEncoder::stGetBitSize(), ptrReadFile))
             bDataDry = true;
         else
-        { 
-            encoder().doEncode(buffer, (unsigned long int)(TBitEncoder::stGetBitSize()));
+        {
+            encoder().doEncode(buffer, (unsigned long int) (TBitEncoder::stGetBitSize()));
             //
             const TByte* encodedBuff = NULL;
             encodedBuff = encoder().getBuffer().getData();
             unsigned long int encodedBuffSize = encoder().getBuffer().getSize();
             //
             if (encodedBuffSize != fwrite(encodedBuff, sizeof (TByte),
-                                                       encodedBuffSize,
-                                                       ptrWriteFile))
+                                          encodedBuffSize,
+                                          ptrWriteFile))
             {
                 throw TException("Error TFileAgent::doGenerate [ FAILED ] <= [ fwrite ]");
             }

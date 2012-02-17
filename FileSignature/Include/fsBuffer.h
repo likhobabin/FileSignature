@@ -9,45 +9,45 @@
 #pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
 #endif
 ////
-class TBuffer
-{
+
+class TBuffer {
 public:
     TBuffer(void);
     TBuffer(const TByte data[], unsigned long int /*__FSize*/);
     TBuffer(unsigned long int /*__FSize*/);
     ///
-    unsigned long int getSize(void ) const 
-    {
-        return(FSize);
+
+    unsigned long int getSize(void) const {
+        return (FSize);
     }
     //
-    const TByte* getData(void ) const
-    {
-        return(FData);
+
+    const TByte* getData(void) const {
+        return (FData);
     }
     //
     void doFill(const TByte data[], unsigned long int /*__FSize*/);
     ///    
     ~TBuffer(void);
-    
+
 private:
-    TByte* FData; 
+    TByte* FData;
     unsigned long int FSize;
     //
     void Resize(unsigned long int /*__FSize*/);
     void Fill(const TByte __FFillInData[], unsigned long int /*__FSize*/);
     //
-    void setSize(unsigned long int __FNewSize)
-    {
+
+    void setSize(unsigned long int __FNewSize) {
         FSize = __FNewSize;
     }
     //
-    TByte* getData(void )  
-    {
-        return(FData);
+
+    TByte* getData(void) {
+        return (FData);
     }
     //
-    void Close(void );
+    void Close(void);
 };
 ////
 #ifdef _MSC_VER

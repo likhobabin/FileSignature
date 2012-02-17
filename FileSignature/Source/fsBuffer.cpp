@@ -18,7 +18,7 @@
 #endif
 /////
 
-TBuffer::TBuffer(void):
+TBuffer::TBuffer(void) :
 FData(NULL),
 FSize(0x0L)
 {
@@ -32,7 +32,7 @@ FSize(__FSize)
     TByte nullChar = '0';
     //
     FData = new TByte[__FSize];
-    memset(FData,  nullChar, getSize());
+    memset(FData, nullChar, getSize());
 }
 //
 
@@ -51,22 +51,14 @@ void TBuffer::doFill(const TByte __FData[], unsigned long int __FSize)
     //
     Fill(__FData, __FSize);
 }
-//
-
-void TBuffer::Close(void)
-{
-    if (NULL != FData)
-    {
-        delete(FData);
-        FData = NULL;
-    }
-}
 ///    
+
 TBuffer::~TBuffer(void)
 {
     Close();
 }
 //***************************//
+
 void TBuffer::Resize(unsigned long int __FNewSize)
 {
     TByte* newData = NULL;
@@ -90,9 +82,20 @@ void TBuffer::Resize(unsigned long int __FNewSize)
     oldData = NULL;
 }
 //
+
 void TBuffer::Fill(const TByte __FFillInData[], unsigned long int __FSize)
 {
     TByte nullChar = '0';
     memset(FData, nullChar, __FSize);
     memcpy(FData, __FFillInData, __FSize);
+}
+//
+
+void TBuffer::Close(void)
+{
+    if (NULL != FData)
+    {
+        delete(FData);
+        FData = NULL;
+    }
 }

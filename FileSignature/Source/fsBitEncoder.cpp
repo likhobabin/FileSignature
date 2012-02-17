@@ -21,17 +21,19 @@
 long int TBitEncoder::stBitSize = 0x100000L;
 //******************************************
 //
-TBitEncoder::TBitEncoder(long int __FBitSize):
-FBuffer(*(new TBuffer( )))
+
+TBitEncoder::TBitEncoder(long int __FBitSize) :
+FBuffer(*(new TBuffer()))
 {
-stSetBitSize(__FBitSize);
+    stSetBitSize(__FBitSize);
 }
 //
+
 void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long int __FLength)
 {
     MD5_CTX md5Encoder;
     //
-    if (1 != MD5_Init(&md5Encoder) )
+    if (1 != MD5_Init(&md5Encoder))
     {
         throw TException("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Init(..,) ]");
     }
@@ -43,9 +45,9 @@ void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long int __FLeng
     {
         std::string errDescr("Error TBitEncoder::doEncode [1 != ] <= [ MD5_Update(..,) ");
         //
-        if(1 != MD5_Final(md5, &md5Encoder))
+        if (1 != MD5_Final(md5, &md5Encoder))
         {
-            errDescr +=  "&& MD5_Final(...) ]";
+            errDescr += "&& MD5_Final(...) ]";
         }
         else
         {
@@ -61,6 +63,7 @@ void TBitEncoder::doEncode(const TByte __FInputData[], unsigned long int __FLeng
     Buffer().doFill(md5, encodeBuffLength);
 }
 //
+
 TBitEncoder::~TBitEncoder(void)
 {
     delete (&FBuffer);

@@ -11,21 +11,21 @@
 ////
 class TBuffer;
 //
-class TBitEncoder 
-{
+
+class TBitEncoder {
 public:
-    static long int stGetBitSize(void) 
-    {
+
+    static long int stGetBitSize(void) {
         return (stBitSize);
     }
     //*****************************************************//
     //max bit size = 2147483647 byte
-    TBitEncoder(long int __FBitSize=0x100000L); //1048576 byte
+    TBitEncoder(long int __FBitSize = 0x100000L); //1048576 byte
     //
     void doEncode(const TByte __FInputData[], unsigned long int /*__FLength*/);
     //
-    const TBuffer& getBuffer(void) const 
-    {
+
+    const TBuffer& getBuffer(void) const {
         return (FBuffer);
     }
     //
@@ -35,15 +35,14 @@ private:
     static long int stBitSize;
     TBuffer& FBuffer;
     //
-    TBuffer& Buffer(void) 
-    {
+
+    TBuffer& Buffer(void) {
         return (FBuffer);
     }
     //******************************************
-    static void stSetBitSize(long int __stBitSize)
-    {
-        if(0x0L < __stBitSize)
-        {
+
+    static void stSetBitSize(long int __stBitSize) {
+        if (0x0L < __stBitSize) {
             stBitSize = __stBitSize;
         }
     }
