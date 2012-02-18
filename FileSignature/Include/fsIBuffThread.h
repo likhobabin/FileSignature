@@ -1,5 +1,5 @@
-#ifndef __FSTHREAD_H__
-#define	__FSTHREAD_H__
+#ifndef __FSIBUFFTHREAD_H__
+#define	__FSIBUFFTHREAD_H__
 ////
 #ifdef _MSC_VER
 #pragma pack(push,8)
@@ -13,13 +13,13 @@ class TBuffer;
 class TMutex;
 //
 
-class TBuffThread {
+class IBuffThread {
 public:
-    TBuffThread(TMutex&);
+    IBuffThread(TMutex&);
     //
     void doStart(TBuffer* /*__FPtrThreadArg*/);
     //
-    virtual ~TBuffThread(void);
+    virtual ~IBuffThread(void);
 
 protected:
     void run(void);
@@ -73,5 +73,5 @@ private:
 #pragma option pop
 #endif
 ////
-#endif	/* __FSTHREAD_H__ */
+#endif	/* __FSIBUFFTHREAD_H__ */
 

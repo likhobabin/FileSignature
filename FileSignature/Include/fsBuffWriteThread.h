@@ -10,10 +10,10 @@
 #pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
 #endif
 ////
-class TBuffThread;
+class IBuffThread;
 //
 
-class TBuffWriteThread : public TBuffThread {
+class TBuffWriteThread : public IBuffThread {
 public:
     TBuffWriteThread(std::string /*__FReadFilePath*/, TMutex& /*__FMutex*/);
 

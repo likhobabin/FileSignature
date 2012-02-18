@@ -1,7 +1,7 @@
 #include "fsPrecompile.h"
 //
 #include "fsBuffer.h"
-#include "fsBuffThread.h"
+#include "fsIBuffThread.h"
 ////
 #ifdef __BORLANDC__
 #pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
@@ -19,42 +19,42 @@
 #endif
 //
 
-TBuffThread::TBuffThread(TMutex& __FMutex) :
+IBuffThread::IBuffThread(TMutex& __FMutex) :
 FSharedBuffer(NULL),
 FMutex(__FMutex)
 {
 }
 //
 
-void TBuffThread::doStart(TBuffer* __FSharedBuffer)
+void IBuffThread::doStart(TBuffer* __FSharedBuffer)
 {
     setBuffer(__FSharedBuffer);
     //
     int retResult = 0x0;
     //
-    retResult = pthread_create(&FThreadId, NULL, TBuffThread::stStartPoint,
+    retResult = pthread_create(&FThreadId, NULL, IBuffThread::stStartPoint,
                                reinterpret_cast<void*> (this));
     if (0 != retResult)
-        throw TException("Error TBuffThread::Start [FAILED] <= [pthread_create(...)]");
+        throw TException("Error IBuffThread::Start [FAILED] <= [pthread_create(...)]");
 }
 //
 
-TBuffThread::~TBuffThread(void)
+IBuffThread::~IBuffThread(void)
 {
     join();
 }
 //
 
-void TBuffThread::run(void)
+void IBuffThread::run(void)
 {
     setUp();
     execute();
 }
 //**************************************************//
 
-void* TBuffThread::stStartPoint(void* __FPtrOnItselfThr)
+void* IBuffThread::stStartPoint(void* __FPtrOnItselfThr)
 {
-    TBuffThread* runThread = static_cast<TBuffThread*> (__FPtrOnItselfThr);
+    IBuffThread* runThread = static_cast<IBuffThread*> (__FPtrOnItselfThr);
     if (NULL != runThread)
     {
         runThread->run();

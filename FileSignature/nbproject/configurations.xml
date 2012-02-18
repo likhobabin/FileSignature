@@ -5,11 +5,12 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Include/fsBitEncoder.h</itemPath>
-      <itemPath>Include/fsBuffThread.h</itemPath>
+      <itemPath>Include/fsBuffReadThread.h</itemPath>
       <itemPath>Include/fsBuffWriteThread.h</itemPath>
       <itemPath>Include/fsBuffer.h</itemPath>
       <itemPath>Include/fsFileAgent.h</itemPath>
       <itemPath>Include/fsFileAgentThr.h</itemPath>
+      <itemPath>Include/fsIBuffThread.h</itemPath>
       <itemPath>Include/fsIFileAgent.h</itemPath>
       <itemPath>Include/fsMutex.h</itemPath>
       <itemPath>Include/fsPrecompile.h</itemPath>
@@ -23,13 +24,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Source/fsBitEncoder.cpp</itemPath>
-      <itemPath>Source/fsBuffThread.cpp</itemPath>
       <itemPath>Source/fsBuffWriteThread.cpp</itemPath>
       <itemPath>Source/fsBuffer.cpp</itemPath>
       <itemPath>Source/fsFileAgent.cpp</itemPath>
       <itemPath>Source/fsFileAgentThr.cpp</itemPath>
+      <itemPath>Source/fsIBuffThread.cpp</itemPath>
       <itemPath>Source/fsIFileAgent.cpp</itemPath>
       <itemPath>Source/fsMutex.cpp</itemPath>
+      <itemPath>Source/fsReadBuffThead.cpp</itemPath>
       <itemPath>Source/fsUnifException.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

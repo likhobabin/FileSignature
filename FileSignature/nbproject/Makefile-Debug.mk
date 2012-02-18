@@ -40,9 +40,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/Source/fsBitEncoder.o \
 	${OBJECTDIR}/Source/fsMutex.o \
 	${OBJECTDIR}/Source/fsBuffer.o \
+	${OBJECTDIR}/Source/fsReadBuffThead.o \
 	${OBJECTDIR}/Source/fsUnifException.o \
 	${OBJECTDIR}/Source/fsBuffWriteThread.o \
-	${OBJECTDIR}/Source/fsBuffThread.o
+	${OBJECTDIR}/Source/fsIBuffThread.o
 
 
 # C Compiler Flags
@@ -101,6 +102,11 @@ ${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffer.o Source/fsBuffer.cpp
 
+${OBJECTDIR}/Source/fsReadBuffThead.o: Source/fsReadBuffThead.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsReadBuffThead.o Source/fsReadBuffThead.cpp
+
 ${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
@@ -111,10 +117,10 @@ ${OBJECTDIR}/Source/fsBuffWriteThread.o: Source/fsBuffWriteThread.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffWriteThread.o Source/fsBuffWriteThread.cpp
 
-${OBJECTDIR}/Source/fsBuffThread.o: Source/fsBuffThread.cpp 
+${OBJECTDIR}/Source/fsIBuffThread.o: Source/fsIBuffThread.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffThread.o Source/fsBuffThread.cpp
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsIBuffThread.o Source/fsIBuffThread.cpp
 
 # Subprojects
 .build-subprojects:

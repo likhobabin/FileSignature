@@ -23,8 +23,8 @@ public:
     ~TMutex(void);
 
 private:
-    static pthread_mutex_t stMutexCount;
-    static pthread_cond_t stConditionId;
+    pthread_mutex_t FMutexCount;
+    pthread_cond_t FConditionId;
 };
 ////
 #ifdef _MSC_VER

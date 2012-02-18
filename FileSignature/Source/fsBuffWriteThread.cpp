@@ -2,7 +2,7 @@
 //
 #include "fsBuffer.h"
 #include "fsMutex.h"
-#include "fsBuffThread.h"
+#include "fsIBuffThread.h"
 #include "fsBuffWriteThread.h"
 ////
 #ifdef __BORLANDC__
@@ -22,7 +22,7 @@
 //
 
 TBuffWriteThread::TBuffWriteThread(std::string __FReadFilePath, TMutex& __FMutex) :
-TBuffThread(__FMutex),
+IBuffThread(__FMutex),
 FReadFilePath(__FReadFilePath),
 FReadFile(NULL)
 {
