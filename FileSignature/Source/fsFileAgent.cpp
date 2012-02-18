@@ -39,7 +39,7 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     if (NULL == ptrReadFile)
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrReadFile = fopen(...) ]");
     //
-    IFileAgent::setInputFileSize(stFileSize(ptrReadFile));
+    IFileAgent::setInputFileSize(IFileAgent::stFileSize(ptrReadFile));
     //
     ptrWriteFile = fopen64(IFileAgent::getOutputFilePath().c_str(), "wb");
     if (NULL == ptrWriteFile)
@@ -92,28 +92,4 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
 
 TFileAgent::~TFileAgent(void)
 {
-}
-//******************************************************//
-
-off64_t TFileAgent::stFileSize(FILE* __FOpenedFile)
-{
-    off64_t outSize;
-    //
-    fseeko64(__FOpenedFile, 0x0L, SEEK_END);
-    //
-    outSize = ftello64(__FOpenedFile);
-    //
-    fseeko64(__FOpenedFile, 0x0L, SEEK_SET);
-    ///
-    return (outSize);
-}
-//
-
-void TFileAgent::stCloseFile(FILE* __FCloseFile)
-{
-    if (NULL != __FCloseFile)
-    {
-        fclose(__FCloseFile);
-        __FCloseFile = NULL;
-    }
 }

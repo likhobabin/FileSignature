@@ -35,6 +35,9 @@ public:
     }
     //
     virtual ~IFileAgent(void);
+    //***************************************
+    static off64_t stFileSize(FILE* /*__FPtrFile*/);
+    static void stCloseFile(FILE* __FCloseFile = NULL);
 
 protected:
 

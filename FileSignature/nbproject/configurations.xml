@@ -24,6 +24,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Source/fsBitEncoder.cpp</itemPath>
+      <itemPath>Source/fsBuffReadThead.cpp</itemPath>
       <itemPath>Source/fsBuffWriteThread.cpp</itemPath>
       <itemPath>Source/fsBuffer.cpp</itemPath>
       <itemPath>Source/fsFileAgent.cpp</itemPath>
@@ -31,7 +32,6 @@
       <itemPath>Source/fsIBuffThread.cpp</itemPath>
       <itemPath>Source/fsIFileAgent.cpp</itemPath>
       <itemPath>Source/fsMutex.cpp</itemPath>
-      <itemPath>Source/fsReadBuffThead.cpp</itemPath>
       <itemPath>Source/fsUnifException.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

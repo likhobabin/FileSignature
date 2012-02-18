@@ -43,13 +43,7 @@ IBuffThread::~IBuffThread(void)
 {
     join();
 }
-//
 
-void IBuffThread::run(void)
-{
-    setUp();
-    execute();
-}
 //**************************************************//
 
 void* IBuffThread::stStartPoint(void* __FPtrOnItselfThr)
@@ -57,7 +51,7 @@ void* IBuffThread::stStartPoint(void* __FPtrOnItselfThr)
     IBuffThread* runThread = static_cast<IBuffThread*> (__FPtrOnItselfThr);
     if (NULL != runThread)
     {
-        runThread->run();
+        return ( runThread->run());
     }
     return (NULL);
 }

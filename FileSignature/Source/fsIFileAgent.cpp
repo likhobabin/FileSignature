@@ -33,3 +33,27 @@ IFileAgent::~IFileAgent(void)
 {
     delete(&FEncoder);
 }
+//********************************//
+
+off64_t IFileAgent::stFileSize(FILE* __FPtrFile)
+{
+    off64_t outSize;
+    //
+    fseeko64(__FPtrFile, 0x0L, SEEK_END);
+    //
+    outSize = ftello64(__FPtrFile);
+    //
+    fseeko64(__FPtrFile, 0x0L, SEEK_SET);
+    ///
+    return (outSize);
+}
+//
+
+void IFileAgent::stCloseFile(FILE* __FCloseFile)
+{
+    if (NULL != __FCloseFile)
+    {
+        fclose(__FCloseFile);
+        __FCloseFile = NULL;
+    }
+}

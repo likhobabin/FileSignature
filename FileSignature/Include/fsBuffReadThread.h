@@ -10,27 +10,45 @@
 #pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
 #endif
 ////
+class TFileAgentThr;
+class TBitEncoder;
+class IFileAgent;
 class IBuffThread;
 //
 
 class TBuffReadThread : public IBuffThread {
 public:
-    TBuffReadThread(std::string /*__FWriteFilePath*/, TMutex& /*__FMutex*/);
+    TBuffReadThread(std::string /*__FWriteFilePath*/,
+            TMutex& /*__FMutex*/,
+            long int __FEncBitSize = 0x100000L);
 
-    ~TBuffReadThread(void);
+    virtual ~TBuffReadThread(void);
 
 protected:
-
-    virtual void setUp(void) {
-    }
+    virtual void setUp(void);
     //
 
-    virtual void execute(void) {
-    }
+    virtual void* execute(void);
 
 private:
     std::string FWriteFilePath;
     FILE* FWriteFile;
+    TBitEncoder& FEncoder;
+    //
+
+    TBitEncoder& encoder(void) {
+        return (FEncoder);
+    }
+    //
+
+    const TBitEncoder& encoder(void) const {
+        return (FEncoder);
+    }
+    //
+    const std::string& writeFilePath(void ) const 
+    {
+        return(FWriteFilePath);
+    }
 };
 ////
 #ifdef _MSC_VER

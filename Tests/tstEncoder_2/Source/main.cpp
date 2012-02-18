@@ -2,8 +2,13 @@
 //
 #include <fsBuffer.h>
 #include <fsBitEncoder.h>
+#include <fsMutex.h>
 #include <fsIFileAgent.h>
-#include <fsFileAgent.h>
+#include <fsIBuffThread.h>
+#include <fsFileAgentThr.h>
+#include <fsBuffWriteThread.h>
+#include <fsBuffReadThread.h>
+#include <fsIFileAgent.h>
 ////
 #ifdef __BORLANDC__
 #pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
@@ -29,10 +34,6 @@ static void debugArguments(int /*__argc*/, const char* __args[]);
 
 int main(int argc, const char* args[])
 {
-    unsigned long int length = 256;//0x100000000;
-    unsigned long int offset = 9;//0x100000000;
-    offset ^= length;
-    //
     try
     {
         checkArgQuantity(argc);
@@ -50,11 +51,11 @@ int main(int argc, const char* args[])
         //
         debugArguments(argc, args);
         //
-        TFileAgent fileAgent(bitSize);
+        TFileAgentThr thrFileAgent(bitSize);
         //
-        fileAgent.doGenerate(inputPath, outputPath);
+        thrFileAgent.doGenerate(inputPath, outputPath);
         //
-        printf("\nDebug [***The End***] <= [ File Agent finished job ] =)\n");
+        printf("\nDebug [***The End***] <= [ Thread File Agent finished job ] =)\n");
     }
     catch (std::exception& ex)
     {

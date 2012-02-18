@@ -35,12 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Source/fsFileAgent.o \
+	${OBJECTDIR}/Source/fsBuffReadThead.o \
 	${OBJECTDIR}/Source/fsIFileAgent.o \
 	${OBJECTDIR}/Source/fsFileAgentThr.o \
 	${OBJECTDIR}/Source/fsBitEncoder.o \
 	${OBJECTDIR}/Source/fsMutex.o \
 	${OBJECTDIR}/Source/fsBuffer.o \
-	${OBJECTDIR}/Source/fsReadBuffThead.o \
 	${OBJECTDIR}/Source/fsUnifException.o \
 	${OBJECTDIR}/Source/fsBuffWriteThread.o \
 	${OBJECTDIR}/Source/fsIBuffThread.o
@@ -77,6 +77,11 @@ ${OBJECTDIR}/Source/fsFileAgent.o: Source/fsFileAgent.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
 
+${OBJECTDIR}/Source/fsBuffReadThead.o: Source/fsBuffReadThead.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffReadThead.o Source/fsBuffReadThead.cpp
+
 ${OBJECTDIR}/Source/fsIFileAgent.o: Source/fsIFileAgent.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
@@ -101,11 +106,6 @@ ${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffer.o Source/fsBuffer.cpp
-
-${OBJECTDIR}/Source/fsReadBuffThead.o: Source/fsReadBuffThead.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Source
-	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsReadBuffThead.o Source/fsReadBuffThead.cpp
 
 ${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source

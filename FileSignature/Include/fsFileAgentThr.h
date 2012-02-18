@@ -11,6 +11,7 @@
 ////
 
 class TFileAgentThr : public IFileAgent {
+public:
     //max bit size of encoder = 2147483647 byte
     TFileAgentThr(long int __FEncBitSize = 0x100000L); //1048576 byte 
     //
@@ -20,6 +21,20 @@ class TFileAgentThr : public IFileAgent {
 
     //
     ~TFileAgentThr(void);
+    //******************
+    static bool stDataDry(void )
+    {
+        return(stBDataDry);
+    }
+    //
+    static void setDataDry(bool __bDataDry)
+    {
+        stBDataDry = __bDataDry;
+    }
+
+private:
+    TBuffer& FThrSharedBuff;
+    static bool stBDataDry;
 
 };
 ////

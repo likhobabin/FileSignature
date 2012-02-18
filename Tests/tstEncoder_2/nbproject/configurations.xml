@@ -70,6 +70,7 @@
           <linkerLibItems>
             <linkerLibLibItem>filesignature</linkerLibLibItem>
             <linkerOptionItem>-lcrypto</linkerOptionItem>
+            <linkerOptionItem>-lpthread</linkerOptionItem>
           </linkerLibItems>
           <commandLine>-O2</commandLine>
         </linkerTool>

@@ -22,9 +22,18 @@ public:
     virtual ~IBuffThread(void);
 
 protected:
-    void run(void);
-    virtual void setUp(void) = 0;
-    virtual void execute(void) = 0;
+    void* run(void)
+    {
+     setUp();
+     return (execute());
+    }
+    virtual void setUp(void)
+    {
+    }
+    virtual void* execute(void)
+    {
+        return(NULL);
+    }
     //
 
     void setBuffer(TBuffer* __FSharedBuffer) {

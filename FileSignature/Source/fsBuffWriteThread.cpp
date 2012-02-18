@@ -3,6 +3,9 @@
 #include "fsBuffer.h"
 #include "fsMutex.h"
 #include "fsIBuffThread.h"
+#include "fsIFileAgent.h"
+#include "fsFileAgentThr.h"
+#include "fsBitEncoder.h"
 #include "fsBuffWriteThread.h"
 ////
 #ifdef __BORLANDC__
@@ -27,6 +30,67 @@ FReadFilePath(__FReadFilePath),
 FReadFile(NULL)
 {
 }
+//
+
+void TBuffWriteThread::setUp(void)
+{
+    FReadFile = fopen64(readFilePath().c_str(), "rb");
+    if (NULL == FReadFile)
+        throw TException("Error TBuffWriteThread::setUp [ NULL ] <= [ ptrReadFile = fopen64(...) ]");
+    //
+    printf("\nDebug TBuffWriteThread::setUo [ Write Buffer Thread Has Set Up ]\n");
+}
+//
+
+void* TBuffWriteThread::execute(void)
+{
+    printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread Has Started ]\n");
+    ////
+    off64_t itQuantity = IFileAgent::stFileSize(FReadFile) / sizeof (TByte);
+    bool bDataDry = false;
+    off64_t idx = 0x0LL;
+    //
+    for (; itQuantity > idx && !bDataDry; idx++)
+    {
+
+        mutex().doLock();
+        //
+        if (!getSharedBuffer()->isEmpty())
+        {
+            mutex().doWait();
+            //
+            printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
+        }
+        else
+        {
+            unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
+            TByte nullChar = '0';
+            TByte buffer[encodeBuffSize];
+            //
+            memset(buffer, nullChar, encodeBuffSize);
+            //
+            if (0 == fread(buffer, sizeof (TByte), encodeBuffSize, FReadFile))
+            {
+                TFileAgentThr::setDataDry(true);
+                bDataDry = true;
+            }
+            //
+            TBuffer& sharedBuff = *(getSharedBuffer());
+            sharedBuff.doFill(buffer, encodeBuffSize);
+            //
+            printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
+        }
+        //
+        mutex().doUnlock();
+    }
+    ////
+    IFileAgent::stCloseFile(FReadFile);
+    ////
+    printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
+    ////
+    return (NULL);
+}
+
 //
 
 TBuffWriteThread::~TBuffWriteThread(void)

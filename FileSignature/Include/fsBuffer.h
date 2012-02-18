@@ -22,18 +22,41 @@ public:
     }
     //
 
+    unsigned long int getLength(void) const {
+        return (FLength);
+    }
+
+    //
+
+    unsigned long int getOffset(void) const {
+        return (FOffset);
+    }
+
     const TByte* getData(void) const {
         return (FData);
     }
     //
-    void doFill(const TByte data[], unsigned long int /*__FSize*/);
-    void doClear(void);
-    ///    
+
+    bool isEmpty(void) const {
+        return ((0x0L == getLength()) ? (true) : (false));
+    }
+    //
+    void doFill(const TByte __FInData[], unsigned long int /*__FInLength*/);
+    void doRead(TByte __FOutData[], unsigned long int /*__FOutLength*/);
+
+    void doReset(void) {
+        setOffset(0x0L);
+    }
+    //
+    void doErase(void);
+    ///    I
     ~TBuffer(void);
 
 private:
     TByte* FData;
     unsigned long int FSize;
+    unsigned long int FLength;
+    unsigned long int FOffset;
     //
     void Resize(unsigned long int /*__FSize*/);
     void Fill(const TByte __FFillInData[], unsigned long int /*__FSize*/);
@@ -43,6 +66,15 @@ private:
         FSize = __FNewSize;
     }
     //
+
+    void setLength(unsigned long int __FLength) {
+        FLength = __FLength;
+    }
+    //
+
+    void setOffset(unsigned long int __FOffset) {
+        FOffset = __FOffset;
+    }
 
     TByte* getData(void) {
         return (FData);
