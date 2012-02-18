@@ -52,13 +52,13 @@ void* TBuffReadThread::execute(void)
     bool bDataDry = false;
     ////
     mutex().doLock();
-    //
+    ////
     if (TFileAgentThr::stDataDry())
     {
         bDataDry = true;
         printf("\nDebug TBuffReadThread::execute [ Data is over ]\n");
     }
-    
+
     for (; !bDataDry;)
     {
         unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
@@ -96,7 +96,7 @@ void* TBuffReadThread::execute(void)
             //
             printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread has written data bit to file ]\n");
         }
-    }
+    }        
     ////
     mutex().doUnlock();
     ////
