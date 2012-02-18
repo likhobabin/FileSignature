@@ -35,10 +35,10 @@ void TFileAgentThr::doGenerate(const std::string& __FInputFilePath,
                                const std::string& __FOutputFilePath)
 {
     TMutex thrSyncMutex;
-    //TBuffWriteThread wrThread(__FInputFilePath, thrSyncMutex);
+    TBuffWriteThread wrThread(__FInputFilePath, thrSyncMutex);
     TBuffReadThread rdThread(__FOutputFilePath, thrSyncMutex);
     //
-    //wrThread.doStart(&FThrSharedBuff);
+    wrThread.doStart(&FThrSharedBuff);
     rdThread.doStart(&FThrSharedBuff);
 }
 //
