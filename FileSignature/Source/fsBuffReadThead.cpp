@@ -80,11 +80,6 @@ void* TBuffReadThread::execute(void)
             sharedBuff.doRead(buffer, encodeBuffSize);
             printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread has gotten data ]\n");
             //
-
-        }
-        //
-        if (!bDataDry)
-        {
             encoder().doEncode(buffer, encodeBuffSize);
             printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread has passed data to encode ]\n");
             const TByte* encodedBuff = NULL;
