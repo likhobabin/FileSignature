@@ -38,14 +38,15 @@ void TFileAgentThr::doGenerate(const std::string& __FInputFilePath,
     unsigned long int encBitSize = TBitEncoder::stGetBitSize();
     TMutex thrSyncMutex;
     TBuffWriteThread wrThread(__FInputFilePath, thrSyncMutex);
-    TBuffReadThread rdThread(__FOutputFilePath, thrSyncMutex, wrThread.getDataDryState(),
+    TBuffReadThread rdThread(__FOutputFilePath, thrSyncMutex, 
+                             wrThread.getDataDryState(),
                              encBitSize);
     //
-    rdThread.doStart(&FThrSharedBuff);
     wrThread.doStart(&FThrSharedBuff);
+    rdThread.doStart(&FThrSharedBuff);
     //
-    rdThread.join();
     wrThread.join();
+    rdThread.join();
 }
 //
 
