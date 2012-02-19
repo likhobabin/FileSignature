@@ -44,11 +44,6 @@ public:
     void doFill(const TByte __FInData[], unsigned long int /*__FInLength*/);
     void doRead(TByte __FOutData[], unsigned long int /*__FOutLength*/);
 
-    void doReset(void) {
-        setLeftOffset(0x0L);
-    }
-    //
-    void doErase(void);
     ///    I
     ~TBuffer(void);
 
