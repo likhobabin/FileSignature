@@ -15,6 +15,7 @@
       <itemPath>Include/fsIFileAgent.h</itemPath>
       <itemPath>Include/fsMutex.h</itemPath>
       <itemPath>Include/fsPrecompile.h</itemPath>
+      <itemPath>Include/fsProgressBar.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -33,6 +34,7 @@
       <itemPath>Source/fsIBuffThread.cpp</itemPath>
       <itemPath>Source/fsIFileAgent.cpp</itemPath>
       <itemPath>Source/fsMutex.cpp</itemPath>
+      <itemPath>Source/fsProgressBar.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

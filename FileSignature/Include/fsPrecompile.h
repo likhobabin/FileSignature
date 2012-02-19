@@ -5,6 +5,7 @@
 #include <exception>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <pthread.h>
 #include <string.h>
 #include <limits.h>

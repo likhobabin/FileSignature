@@ -37,6 +37,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Source/fsFileAgent.o \
 	${OBJECTDIR}/Source/fsBuffReadThead.o \
 	${OBJECTDIR}/Source/fsIFileAgent.o \
+	${OBJECTDIR}/Source/fsProgressBar.o \
 	${OBJECTDIR}/Source/fsFileAgentThr.o \
 	${OBJECTDIR}/Source/fsBitEncoder.o \
 	${OBJECTDIR}/Source/fsMutex.o \
@@ -86,6 +87,11 @@ ${OBJECTDIR}/Source/fsIFileAgent.o: Source/fsIFileAgent.cpp
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsIFileAgent.o Source/fsIFileAgent.cpp
+
+${OBJECTDIR}/Source/fsProgressBar.o: Source/fsProgressBar.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsProgressBar.o Source/fsProgressBar.cpp
 
 ${OBJECTDIR}/Source/fsFileAgentThr.o: Source/fsFileAgentThr.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source

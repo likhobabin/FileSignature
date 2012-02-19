@@ -4,6 +4,7 @@
 #include "fsIFileAgent.h"
 #include "fsFileAgent.h"
 #include "fsBuffer.h"
+#include "fsProgressBar.h"
 ////
 #ifdef __BORLANDC__
 #pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
@@ -52,10 +53,22 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
     printf("\nDebug TFileAgent::doGenerate [ %d ] <= [TByte Size]\n", sizeof (TByte));
     printf("\nDebug TFileAgent::doGenerate [ Started Job... ] <= [File Agent]\n");
     //
+    off64_t rdFileSize=0x0LL;
+    long int bitSize = 0x0L;
+    unsigned long int allIterators = 0x0L;
+    unsigned long int readBit=0x0L;
+    //
+    bitSize = TBitEncoder::stGetBitSize();
+    rdFileSize = IFileAgent::stFileSize(ptrReadFile);
+    allIterators = (unsigned long int)(rdFileSize/bitSize);
+    //
+    TProgressBar progressBar(allIterators);
+    //
     bool bDataDry = false;
     //
-    for (; !bDataDry;)
+    for (; !bDataDry;readBit++)
     {
+        //printf("\nDebug TFileAgent::doGenerate [ %ld ]\n", readBit);
         TByte nullChar = '0';
         TByte buffer[TBitEncoder::stGetBitSize()];
         memset(buffer, nullChar, TBitEncoder::stGetBitSize());
@@ -64,6 +77,7 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
             bDataDry = true;
         else
         {
+            progressBar.Show(readBit);
             encoder().doEncode(buffer, (unsigned long int) (TBitEncoder::stGetBitSize()));
             //
             const TByte* encodedBuff = NULL;
