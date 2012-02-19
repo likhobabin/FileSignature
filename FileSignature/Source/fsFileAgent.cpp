@@ -48,16 +48,13 @@ void TFileAgent::doGenerate(const std::string& __FInputFilePath, const std::stri
         throw TException("Error TFileAgent::doGenerate [ NULL ] <= [ ptrWriteFile = fopen(...) ]");
     }
     //
-    off64_t itQuantity = IFileAgent::getInputFileSize() / sizeof (TByte);
-    //
     printf("\nDebug TFileAgent::doGenerate [ %ld ] <= [Encoder Bit Size]\n", TBitEncoder::stGetBitSize());
     printf("\nDebug TFileAgent::doGenerate [ %d ] <= [TByte Size]\n", sizeof (TByte));
     printf("\nDebug TFileAgent::doGenerate [ Started Job... ] <= [File Agent]\n");
     //
     bool bDataDry = false;
-    off64_t idx = 0x0LL;
     //
-    for (; itQuantity > idx && !bDataDry; idx++)
+    for (; !bDataDry;)
     {
         TByte nullChar = '0';
         TByte buffer[TBitEncoder::stGetBitSize()];
