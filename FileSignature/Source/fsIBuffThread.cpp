@@ -35,7 +35,7 @@ void IBuffThread::doStart(TBuffer* __FSharedBuffer)
     retResult = pthread_create(&FThreadId, NULL, IBuffThread::stStartPoint,
                                (void*) (this));
     if (0 != retResult)
-        throw TException("Error IBuffThread::Start [FAILED] <= [pthread_create(...)]");
+        throw TException("Error IBuffThread::doStart [FAILED] <= [pthread_create(...)]");
 }
 //
 
