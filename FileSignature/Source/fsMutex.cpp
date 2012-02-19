@@ -78,9 +78,9 @@ bool TMutex::doSignal(void)
 TMutex::~TMutex(void)
 {
     if (0x0 != pthread_mutex_destroy(&FMutexCount))
-        printf("\nError TMutex::TMutex(...) [ FAILED ] <= [Destroy Mutex]\n");
+        printf("\nError TMutex::~TMutex(...) [ FAILED ] <= [Destroy Mutex]\n");
     ////
     if (0x0 != pthread_cond_destroy(&FConditionId))
-        printf("\nError TMutex::TMutex(...) [ FAILED ] <= [Destroy Condition]\n");
+        printf("\nError TMutex::~TMutex(...) [ FAILED ] <= [Destroy Condition]\n");
 
 }
