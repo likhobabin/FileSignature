@@ -21,9 +21,9 @@
 
 TMutex::TMutex(void)
 {
-    if(0x0 != pthread_mutex_init(&FMutexCount, NULL))
+    if (0x0 != pthread_mutex_init(&FMutexCount, NULL))
         printf("\nError TMutex::TMutex(...) [ FAILED ] <= [Init Mutex]\n");
-    if(0x0 != pthread_cond_init(&FConditionId, NULL))
+    if (0x0 != pthread_cond_init(&FConditionId, NULL))
         printf("\nError TMutex::TMutex(...) [ FAILED ] <= [Init Condition]\n");
 }
 //
@@ -58,7 +58,7 @@ bool TMutex::doWait()
         printf("\nError TMutex::doWait(...) [ FAILED ] <= [Wait Mutex]\n");
         return (false);
     }
-        
+
     ////
     return (true);
 }
@@ -77,10 +77,10 @@ bool TMutex::doSignal(void)
 
 TMutex::~TMutex(void)
 {
-    if(0x0 != pthread_mutex_destroy(&FMutexCount))
+    if (0x0 != pthread_mutex_destroy(&FMutexCount))
         printf("\nError TMutex::TMutex(...) [ FAILED ] <= [Destroy Mutex]\n");
     ////
-    if(0x0 != pthread_cond_destroy(&FConditionId))
+    if (0x0 != pthread_cond_destroy(&FConditionId))
         printf("\nError TMutex::TMutex(...) [ FAILED ] <= [Destroy Condition]\n");
-        
+
 }

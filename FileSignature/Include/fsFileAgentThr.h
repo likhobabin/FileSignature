@@ -22,13 +22,13 @@ public:
     //
     ~TFileAgentThr(void);
     //******************
-    static bool stDataDry(void )
-    {
-        return(stBDataDry);
+
+    static bool stDataDry(void) {
+        return (stBDataDry);
     }
     //
-    static void setDataDry(bool __bDataDry)
-    {
+
+    static void setDataDry(bool __bDataDry) {
         stBDataDry = __bDataDry;
     }
     ///

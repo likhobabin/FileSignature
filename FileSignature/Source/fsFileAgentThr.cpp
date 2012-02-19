@@ -24,6 +24,7 @@
 #endif
 #endif
 //
+
 TFileAgentThr::TFileAgentThr(long int __FEncBitSize) :
 IFileAgent(__FEncBitSize),
 FThrSharedBuff(*(new TBuffer(__FEncBitSize)))
@@ -37,7 +38,8 @@ void TFileAgentThr::doGenerate(const std::string& __FInputFilePath,
     unsigned long int encBitSize = TBitEncoder::stGetBitSize();
     TMutex thrSyncMutex;
     TBuffWriteThread wrThread(__FInputFilePath, thrSyncMutex);
-    TBuffReadThread rdThread(__FOutputFilePath, thrSyncMutex, wrThread.bDataDry(), encBitSize);
+    TBuffReadThread rdThread(__FOutputFilePath, thrSyncMutex, wrThread.getDataDryState(),
+                             encBitSize);
     //
     rdThread.doStart(&FThrSharedBuff);
     wrThread.doStart(&FThrSharedBuff);
@@ -53,4 +55,4 @@ TFileAgentThr::~TFileAgentThr(void)
 
 //****************************************************
 bool TFileAgentThr::stBDataDry = false;
-unsigned int TFileAgentThr::thrCount=0;
+unsigned int TFileAgentThr::thrCount = 0;

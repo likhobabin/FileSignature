@@ -58,11 +58,12 @@ void TBuffer::doFill(const TByte __FInData[], unsigned long int __FInLength)
     Fill(__FInData, __FInLength);
 }
 ///
+
 void TBuffer::doRead(TByte __FOutData[], unsigned long int __FOutLength)
 {
-    if((getRightOffset() - getLeftOffset()) >= __FOutLength )
+    if ((getRightOffset() - getLeftOffset()) >= __FOutLength)
     {
-        memcpy(__FOutData, getData()+getLeftOffset(), __FOutLength);
+        memcpy(__FOutData, getData() + getLeftOffset(), __FOutLength);
         //
         FLeftOffset ^= __FOutLength;
         FRightOffset -= FLeftOffset;

@@ -8,13 +8,13 @@
       <itemPath>Include/fsBuffReadThread.h</itemPath>
       <itemPath>Include/fsBuffWriteThread.h</itemPath>
       <itemPath>Include/fsBuffer.h</itemPath>
+      <itemPath>Include/fsException.h</itemPath>
       <itemPath>Include/fsFileAgent.h</itemPath>
       <itemPath>Include/fsFileAgentThr.h</itemPath>
       <itemPath>Include/fsIBuffThread.h</itemPath>
       <itemPath>Include/fsIFileAgent.h</itemPath>
       <itemPath>Include/fsMutex.h</itemPath>
       <itemPath>Include/fsPrecompile.h</itemPath>
-      <itemPath>Include/fsUnifException.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -27,12 +27,12 @@
       <itemPath>Source/fsBuffReadThead.cpp</itemPath>
       <itemPath>Source/fsBuffWriteThread.cpp</itemPath>
       <itemPath>Source/fsBuffer.cpp</itemPath>
+      <itemPath>Source/fsException.cpp</itemPath>
       <itemPath>Source/fsFileAgent.cpp</itemPath>
       <itemPath>Source/fsFileAgentThr.cpp</itemPath>
       <itemPath>Source/fsIBuffThread.cpp</itemPath>
       <itemPath>Source/fsIFileAgent.cpp</itemPath>
       <itemPath>Source/fsMutex.cpp</itemPath>
-      <itemPath>Source/fsUnifException.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

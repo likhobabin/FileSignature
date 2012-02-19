@@ -29,8 +29,8 @@ static void debugArguments(int /*__argc*/, const char* __args[]);
 
 int main(int argc, const char* args[])
 {
-    unsigned long int length = 256;//0x100000000;
-    unsigned long int offset = 9;//0x100000000;
+    unsigned long int length = 256; //0x100000000;
+    unsigned long int offset = 9; //0x100000000;
     offset ^= length;
     //
     try

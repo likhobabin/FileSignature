@@ -28,7 +28,7 @@ TBuffWriteThread::TBuffWriteThread(std::string __FReadFilePath, TMutex& __FMutex
 IBuffThread(__FMutex),
 FReadFilePath(__FReadFilePath),
 FReadFile(NULL),
-FDataDry(false)
+bDataDry(false)
 {
 }
 //
@@ -50,7 +50,7 @@ void* TBuffWriteThread::execute(void)
     unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
     bool bDataDry = false;
     //
-    for (; !bDataDry; )
+    for (; !bDataDry;)
     {
         printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
         mutex().doLock();
@@ -70,18 +70,18 @@ void* TBuffWriteThread::execute(void)
             memset(buffer, nullChar, encodeBuffSize);
             //
             if (0 == fread(buffer, sizeof (TByte), encodeBuffSize, FReadFile))
-            { 
+            {
                 setDataDry(true);
                 printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
                 bDataDry = true;
             }
             else
             {
-            //
-            TBuffer& sharedBuff = *(getSharedBuffer());
-            sharedBuff.doFill(buffer, encodeBuffSize);
-            //
-            printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
+                //
+                TBuffer& sharedBuff = *(getSharedBuffer());
+                sharedBuff.doFill(buffer, encodeBuffSize);
+                //
+                printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
             }
         }
         //

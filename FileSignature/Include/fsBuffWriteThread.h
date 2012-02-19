@@ -18,15 +18,14 @@ class TBuffWriteThread : public IBuffThread {
 public:
     TBuffWriteThread(std::string /*__FReadFilePath*/, TMutex& /*__FMutex*/);
 
-    const bool& bDataDry(void ) const
-    {
-        return(FDataDry);
+    const bool& getDataDryState(void) const {
+        return (bDataDry);
     }
-    void setDataDry(bool __bDataDry)
-    {
-        FDataDry = __bDataDry;
+
+    void setDataDry(bool __bDataDry) {
+        bDataDry = __bDataDry;
     }
-    
+
     virtual ~TBuffWriteThread(void);
 
 protected:
@@ -34,12 +33,12 @@ protected:
     virtual void setUp(void);
     //
     virtual void* execute(void);
-    
+
 
 private:
     std::string FReadFilePath;
     FILE* FReadFile;
-    bool FDataDry;
+    bool bDataDry;
     //**************
 
     const std::string& readFilePath(void) const {

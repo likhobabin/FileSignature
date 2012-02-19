@@ -19,6 +19,7 @@ public:
     //
     void doStart(TBuffer* /*__FPtrThreadArg*/);
     //
+
     void join(void) {
         pthread_join(FThreadId, NULL);
         printf("\nDebug IBuffThread::join [ Join Other Treads ]\n");
@@ -27,19 +28,19 @@ public:
     virtual ~IBuffThread(void);
 
 protected:
-    void* run(void) 
-    {
-     setUp();
-     return (execute());
+
+    void* run(void) {
+        setUp();
+        return (execute());
     }
-    virtual void setUp(void)
-    {
+
+    virtual void setUp(void) {
         printf("\nDebug IBuffThread::setUp [ Setup Func Of Thread Interface ]\n");
     }
-    virtual void* execute(void)
-    {
+
+    virtual void* execute(void) {
         printf("\nDebug IBuffThread::execute [ Execute Func Of Thread Interface ]\n");
-        return(NULL);
+        return (NULL);
     }
     //
 

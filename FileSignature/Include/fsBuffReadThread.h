@@ -32,16 +32,16 @@ protected:
     //
     virtual void* execute(void);
     //
-    bool getDataDry(void ) const 
-    {
-        return(FDataDry);
+
+    bool getDataDry(void) const {
+        return (bDataDry);
     }
 
 private:
     std::string FWriteFilePath;
     FILE* FWriteFile;
     TBitEncoder& FEncoder;
-    const bool& FDataDry;
+    const bool& bDataDry;
     //
 
     TBitEncoder& encoder(void) {
@@ -53,12 +53,12 @@ private:
         return (FEncoder);
     }
     //
-    const std::string& writeFilePath(void ) const 
-    {
-        return(FWriteFilePath);
+
+    const std::string& writeFilePath(void) const {
+        return (FWriteFilePath);
     }
     //
-    void encodeAndWriteFile(void );
+    void encodeAndWriteFile(void);
 };
 ////
 #ifdef _MSC_VER

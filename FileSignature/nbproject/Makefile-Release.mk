@@ -41,7 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Source/fsBitEncoder.o \
 	${OBJECTDIR}/Source/fsMutex.o \
 	${OBJECTDIR}/Source/fsBuffer.o \
-	${OBJECTDIR}/Source/fsUnifException.o \
+	${OBJECTDIR}/Source/fsException.o \
 	${OBJECTDIR}/Source/fsBuffWriteThread.o \
 	${OBJECTDIR}/Source/fsIBuffThread.o
 
@@ -107,10 +107,10 @@ ${OBJECTDIR}/Source/fsBuffer.o: Source/fsBuffer.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffer.o Source/fsBuffer.cpp
 
-${OBJECTDIR}/Source/fsUnifException.o: Source/fsUnifException.cpp 
+${OBJECTDIR}/Source/fsException.o: Source/fsException.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsUnifException.o Source/fsUnifException.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsException.o Source/fsException.cpp
 
 ${OBJECTDIR}/Source/fsBuffWriteThread.o: Source/fsBuffWriteThread.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source

@@ -26,13 +26,13 @@
 
 TBuffReadThread::TBuffReadThread(std::string __FWriteFilePath,
                                  TMutex& __FMutex,
-                                 const bool& __FDataDry,
+                                 const bool& __bDataDry,
                                  long int __FEncBitSize) :
 IBuffThread(__FMutex),
 FWriteFilePath(__FWriteFilePath),
 FWriteFile(NULL),
 FEncoder(*(new TBitEncoder(__FEncBitSize))),
-FDataDry(__FDataDry)
+bDataDry(__bDataDry)
 {
 }
 //
@@ -70,13 +70,13 @@ void* TBuffReadThread::execute(void)
         ///
         if (!getSharedBuffer()->hasRead())
         {
-            if(bDataDry)
+            if (bDataDry)
                 printf("\nDebug TBufferReaderThread::execute [true ] <= [Data Is Dry ];  \
                        [Buffer has yet some data]");
             encodeAndWriteFile();
         }
         else
-        if(!bDataDry)
+            if (!bDataDry)
         {
             mutex().doSignal();
             printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is waiting data ]\n");

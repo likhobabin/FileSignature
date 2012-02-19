@@ -12,7 +12,6 @@
 
 class TException : public std::exception {
 public:
-#ifdef __fsLinux
     ////
     TException(void) throw ();
     TException(const char*);
@@ -31,20 +30,6 @@ public:
 
 private:
     std::string FDescription;
-#else
-#if defined(__fsWindows)
-    __CLR_OR_THIS_CALL TException(void);
-    __CLR_OR_THIS_CALL TException(const char*);
-    __CLR_OR_THIS_CALL TException(const std::string&);
-    __CLR_OR_THIS_CALL TException(const TException&);
-    //
-    TException& __CLR_OR_THIS_CALL operator=(const TException&);
-    virtual const char* __CLR_OR_THIS_CALL what(void) const;
-    //
-    virtual __CLR_OR_THIS_CALL ~TException(void);
-#endif
-    ////
-#endif
 };
 ////
 #ifdef _MSC_VER
