@@ -41,6 +41,7 @@ void IBuffThread::doStart(TBuffer* __FSharedBuffer)
 
 IBuffThread::~IBuffThread(void)
 {
+    FSharedBuffer=NULL;
 }
 
 //**************************************************//
