@@ -52,8 +52,6 @@ double TProgressBar::progress(unsigned long int __FItNum)
     {
         bShow=true;
         FLastPercent = outProgress;
-        if(101 == outProgress)
-                printf("101");
     }
     else
         bShow=false;
