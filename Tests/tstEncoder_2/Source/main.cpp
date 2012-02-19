@@ -2,13 +2,12 @@
 //
 #include <fsBuffer.h>
 #include <fsBitEncoder.h>
-#include <fsMutex.h>
 #include <fsIFileAgent.h>
-#include <fsIBuffThread.h>
 #include <fsFileAgentThr.h>
+#include <fsMutex.h>
+#include <fsIBuffThread.h>
 #include <fsBuffWriteThread.h>
 #include <fsBuffReadThread.h>
-#include <fsIFileAgent.h>
 ////
 #ifdef __BORLANDC__
 #pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
