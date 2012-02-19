@@ -25,10 +25,11 @@ public:
     virtual ~TBuffReadThread(void);
 
 protected:
+    //
     virtual void setUp(void);
     //
-
     virtual void* execute(void);
+    //
 
 private:
     std::string FWriteFilePath;

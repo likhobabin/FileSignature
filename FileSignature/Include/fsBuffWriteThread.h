@@ -21,11 +21,11 @@ public:
     virtual ~TBuffWriteThread(void);
 
 protected:
-
+    //
     virtual void setUp(void);
     //
-
     virtual void* execute(void);
+    
 
 private:
     std::string FReadFilePath;

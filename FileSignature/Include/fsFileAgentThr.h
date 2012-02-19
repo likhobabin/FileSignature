@@ -31,6 +31,8 @@ public:
     {
         stBDataDry = __bDataDry;
     }
+    ///
+    static unsigned int thrCount;
 
 private:
     TBuffer& FThrSharedBuff;

@@ -33,7 +33,7 @@ void IBuffThread::doStart(TBuffer* __FSharedBuffer)
     int retResult = 0x0;
     //
     retResult = pthread_create(&FThreadId, NULL, IBuffThread::stStartPoint,
-                               reinterpret_cast<void*> (this));
+                              (void* ) (this));
     if (0 != retResult)
         throw TException("Error IBuffThread::Start [FAILED] <= [pthread_create(...)]");
 }
@@ -41,14 +41,13 @@ void IBuffThread::doStart(TBuffer* __FSharedBuffer)
 
 IBuffThread::~IBuffThread(void)
 {
-    join();
 }
 
 //**************************************************//
 
 void* IBuffThread::stStartPoint(void* __FPtrOnItselfThr)
 {
-    IBuffThread* runThread = static_cast<IBuffThread*> (__FPtrOnItselfThr);
+    IBuffThread* runThread = (IBuffThread* ) (__FPtrOnItselfThr);
     if (NULL != runThread)
     {
         return ( runThread->run());

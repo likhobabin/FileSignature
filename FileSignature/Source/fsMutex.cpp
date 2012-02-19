@@ -30,16 +30,22 @@ TMutex::TMutex(void)
 
 bool TMutex::doLock(void)
 {
-    if (0x0 != pthread_mutex_lock(&FMutexCount));
+    if (0x0 != pthread_mutex_lock(&FMutexCount))
+    {
+        printf("\nError TMutex::doLock(...) [ FAILED ] <= [Lock Mutex]\n");
         return (false);
+    }
     ////
     return (true);
 }
 
 bool TMutex::doUnlock(void)
 {
-    if (0x0 != pthread_mutex_unlock(&FMutexCount));
+    if (0x0 != pthread_mutex_unlock(&FMutexCount))
+    {
+        printf("\nError TMutex::doUnlock(...) [ FAILED ] <= [UnLock Mutex]\n");
         return (false);
+    }
     ////
     return (true);
 }
@@ -48,7 +54,11 @@ bool TMutex::doUnlock(void)
 bool TMutex::doWait()
 {
     if (0x0 != pthread_cond_wait(&FConditionId, &FMutexCount))
+    {
+        printf("\nError TMutex::doWait(...) [ FAILED ] <= [Wait Mutex]\n");
         return (false);
+    }
+        
     ////
     return (true);
 }
@@ -57,7 +67,10 @@ bool TMutex::doWait()
 bool TMutex::doSignal(void)
 {
     if (0x0 != pthread_cond_signal(&FConditionId))
+    {
+        printf("\nError TMutex::doSignal(...) [ FAILED ] <= [Signal Mutex]\n");
         return (false);
+    }
     ////
     return (true);
 }

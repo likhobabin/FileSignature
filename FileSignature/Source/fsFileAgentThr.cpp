@@ -38,8 +38,11 @@ void TFileAgentThr::doGenerate(const std::string& __FInputFilePath,
     TBuffWriteThread wrThread(__FInputFilePath, thrSyncMutex);
     TBuffReadThread rdThread(__FOutputFilePath, thrSyncMutex);
     //
-    wrThread.doStart(&FThrSharedBuff);
     rdThread.doStart(&FThrSharedBuff);
+    wrThread.doStart(&FThrSharedBuff);
+    //
+    rdThread.join();
+    wrThread.join();
 }
 //
 
@@ -49,3 +52,4 @@ TFileAgentThr::~TFileAgentThr(void)
 
 //****************************************************
 bool TFileAgentThr::stBDataDry = false;
+unsigned int TFileAgentThr::thrCount=0;
