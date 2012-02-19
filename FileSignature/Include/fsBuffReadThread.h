@@ -20,7 +20,9 @@ class TBuffReadThread : public IBuffThread {
 public:
     TBuffReadThread(std::string /*__FWriteFilePath*/,
             TMutex& /*__FMutex*/,
-            long int __FEncBitSize = 0x100000L);
+            const bool& /*__FDataDry*/,
+            long int __FEncBitSize = 0x100000L
+            );
 
     virtual ~TBuffReadThread(void);
 
@@ -30,11 +32,16 @@ protected:
     //
     virtual void* execute(void);
     //
+    bool getDataDry(void ) const 
+    {
+        return(FDataDry);
+    }
 
 private:
     std::string FWriteFilePath;
     FILE* FWriteFile;
     TBitEncoder& FEncoder;
+    const bool& FDataDry;
     //
 
     TBitEncoder& encoder(void) {
@@ -50,6 +57,8 @@ private:
     {
         return(FWriteFilePath);
     }
+    //
+    void encodeAndWriteFile(void );
 };
 ////
 #ifdef _MSC_VER

@@ -27,7 +27,8 @@
 TBuffWriteThread::TBuffWriteThread(std::string __FReadFilePath, TMutex& __FMutex) :
 IBuffThread(__FMutex),
 FReadFilePath(__FReadFilePath),
-FReadFile(NULL)
+FReadFile(NULL),
+FDataDry(false)
 {
 }
 //
@@ -46,53 +47,52 @@ void* TBuffWriteThread::execute(void)
 {
     printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread Has Started ]\n");
     ////
-    mutex().doLock();
-    TFileAgentThr::thrCount++;
-    mutex().doUnlock();
-//    off64_t itQuantity = IFileAgent::stFileSize(FReadFile) / sizeof (TByte);
-//    bool bDataDry = false;
-//    off64_t idx = 0x0LL;
-//    //
-//    for (; itQuantity > idx && !bDataDry; idx++)
-//    {
-//        ////
-//        printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
-//        mutex().doLock();
-//        //
-//        if (!getSharedBuffer()->isEmpty())
-//        {
-//            mutex().doWait();
-//            //
-//            printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
-//        }
-//        else
-//        {
-//            unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
-//            TByte nullChar = '0';
-//            TByte buffer[encodeBuffSize];
-//            //
-//            memset(buffer, nullChar, encodeBuffSize);
-//            //
-//            if (0 == fread(buffer, sizeof (TByte), encodeBuffSize, FReadFile))
-//            {
-//                TFileAgentThr::setDataDry(true);
-//                bDataDry = true;
-//            }
-//            //
-//            TBuffer& sharedBuff = *(getSharedBuffer());
-//            sharedBuff.doFill(buffer, encodeBuffSize);
-//            //
-//            printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
-//        }
-//        ///
-//        printf("\nDebug TBuffWriteThread::execute [ Try UnLock Mutex ] \n");
-//        mutex().doUnlock();
-//    }
-//    ////
-//    IFileAgent::stCloseFile(FReadFile);
-//    ////
-//    printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
-//    ////
+    unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
+    bool bDataDry = false;
+    //
+    for (; !bDataDry; )
+    {
+        printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
+        mutex().doLock();
+        printf("\nDebug TBuffWriteThread::execute [ Lock Mutex is Gotten ] \n");
+        ////
+        if (!getSharedBuffer()->hasRead())
+        {
+            mutex().doWait();
+            ////
+            printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
+        }
+        else
+        {
+            TByte nullChar = '0';
+            TByte buffer[encodeBuffSize];
+            //
+            memset(buffer, nullChar, encodeBuffSize);
+            //
+            if (0 == fread(buffer, sizeof (TByte), encodeBuffSize, FReadFile))
+            { 
+                setDataDry(true);
+                printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
+                bDataDry = true;
+            }
+            else
+            {
+            //
+            TBuffer& sharedBuff = *(getSharedBuffer());
+            sharedBuff.doFill(buffer, encodeBuffSize);
+            //
+            printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
+            }
+        }
+        //
+        printf("\nDebug TBuffWriteThread::execute [ Try UnLock Mutex ] \n");
+        mutex().doUnlock();
+    }
+    //
+    IFileAgent::stCloseFile(FReadFile);
+    //
+    printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
+    ////
     return (NULL);
 }
 

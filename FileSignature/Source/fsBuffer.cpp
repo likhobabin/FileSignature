@@ -21,8 +21,8 @@
 TBuffer::TBuffer(void) :
 FData(NULL),
 FSize(0x0L),
-FLength(0x0L),
-FOffset(0x0L)
+FRightOffset(0x0L),
+FLeftOffset(0x0L)
 {
 }
 //
@@ -30,8 +30,8 @@ FOffset(0x0L)
 TBuffer::TBuffer(unsigned long int __FSize) :
 FData(NULL),
 FSize(__FSize),
-FLength(0x0L),
-FOffset(0x0L)
+FRightOffset(0x0L),
+FLeftOffset(0x0L)
 {
     TByte nullChar = '0';
     //
@@ -43,8 +43,8 @@ FOffset(0x0L)
 TBuffer::TBuffer(const TByte __FData[], unsigned long int __FSize) :
 FData(NULL),
 FSize(0x0L),
-FLength(0x0L),
-FOffset(0x0L)
+FRightOffset(0x0L),
+FLeftOffset(0x0L)
 {
     doFill(__FData, __FSize);
 }
@@ -60,13 +60,12 @@ void TBuffer::doFill(const TByte __FInData[], unsigned long int __FLength)
 ///
 void TBuffer::doRead(TByte __FOutData[], unsigned long int __FOutLength)
 {
-    if((getLength() - getOffset()) > 0x0 && (getLength() - getOffset()) >= __FOutLength )
+    if((getRightOffset() - getLeftOffset()) >= __FOutLength )
     {
-        memcpy(__FOutData, getData()+getOffset(), __FOutLength);
+        memcpy(__FOutData, getData()+getLeftOffset(), __FOutLength);
         //
-        FOffset ^= __FOutLength;
-        if(FOffset == getLength())
-            FOffset=0x0L;
+        FLeftOffset ^= __FOutLength;
+        FRightOffset -= FLeftOffset;
     }
 }
 ///
@@ -79,7 +78,7 @@ void TBuffer::doErase(void)
         oldData = FData;
         FData = NULL;
         setSize(0x0L);
-        setOffset(0x0L);
+        setLeftOffset(0x0L);
         //
         delete[] oldData;
         oldData = NULL;
@@ -122,8 +121,8 @@ void TBuffer::Fill(const TByte __FFillInData[], unsigned long int __FLength)
     TByte nullChar = '0';
     memset(FData, nullChar, __FLength);
     memcpy(FData, __FFillInData, __FLength);
-    setLength(__FLength);
-    setOffset(0x0L);
+    setRightOffset(__FLength);
+    doReset();
 }
 //
 

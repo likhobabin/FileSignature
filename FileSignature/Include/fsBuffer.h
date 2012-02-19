@@ -22,14 +22,14 @@ public:
     }
     //
 
-    unsigned long int getLength(void) const {
-        return (FLength);
+    unsigned long int getRightOffset(void) const {
+        return (FRightOffset);
     }
 
     //
 
-    unsigned long int getOffset(void) const {
-        return (FOffset);
+    unsigned long int getLeftOffset(void) const {
+        return (FLeftOffset);
     }
 
     const TByte* getData(void) const {
@@ -37,15 +37,15 @@ public:
     }
     //
 
-    bool isEmpty(void) const {
-        return ((0x0L == getLength()) ? (true) : (false));
+    bool hasRead(void) const {
+        return ((0x0 == getRightOffset()) ? (true) : (false));
     }
     //
     void doFill(const TByte __FInData[], unsigned long int /*__FInLength*/);
     void doRead(TByte __FOutData[], unsigned long int /*__FOutLength*/);
 
     void doReset(void) {
-        setOffset(0x0L);
+        setLeftOffset(0x0L);
     }
     //
     void doErase(void);
@@ -55,8 +55,8 @@ public:
 private:
     TByte* FData;
     unsigned long int FSize;
-    unsigned long int FLength;
-    unsigned long int FOffset;
+    unsigned long int FRightOffset;
+    unsigned long int FLeftOffset;
     //
     void Resize(unsigned long int /*__FSize*/);
     void Fill(const TByte __FFillInData[], unsigned long int /*__FSize*/);
@@ -67,13 +67,13 @@ private:
     }
     //
 
-    void setLength(unsigned long int __FLength) {
-        FLength = __FLength;
+    void setRightOffset(unsigned long int __FInLength) {
+        FRightOffset = __FInLength;
     }
     //
 
-    void setOffset(unsigned long int __FOffset) {
-        FOffset = __FOffset;
+    void setLeftOffset(unsigned long int __FOffset) {
+        FLeftOffset = __FOffset;
     }
 
     TByte* getData(void) {
