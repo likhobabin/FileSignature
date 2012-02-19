@@ -1,5 +1,5 @@
-#ifndef __FSUNIFEXCEPTION_H__
-#define __FSUNIFEXCEPTION_H__
+#ifndef __FSEXCEPTION_H__
+#define __FSEXCEPTION_H__
 ////
 #ifdef _MSC_VER
 #pragma pack(push,8)
@@ -40,4 +40,4 @@ private:
 #pragma option pop
 #endif
 ////
-#endif // __FSUNIFEXCEPTION_H__
+#endif // __FSEXCEPTION_H__
