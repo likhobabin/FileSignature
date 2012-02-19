@@ -44,28 +44,28 @@ void TBuffReadThread::setUp(void)
     {
         throw TException("Error TBuffReadThread::setUp [ NULL ] <= [ FWriteFile = fopen64(...) ]");
     }
-    printf("\nDebug TBuffReadThread::setUp [ Read Buffer Thread Has Set Up ]\n");
+    //printf("\nDebug TBuffReadThread::setUp [ Read Buffer Thread Has Set Up ]\n");
 }
 //
 
 void* TBuffReadThread::execute(void)
 {
-    printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread Has Started ]\n");
+    //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread Has Started ]\n");
 
-    printf("\nDebug TBuffReadThread::execute [ Try Lock Mutex ] \n");
+    //printf("\nDebug TBuffReadThread::execute [ Try Lock Mutex ] \n");
     bool bDataDry = false;
 
     for (; !bDataDry;)
     {
         ////
-        printf("\nDebug TBuffReadThread::execute [ Try Lock Mutex ] \n");
+        //printf("\nDebug TBuffReadThread::execute [ Try Lock Mutex ] \n");
         mutex().doLock();
-        printf("\nDebug TBuffReadThread::execute [ Mutex is locked ] \n");
+        //printf("\nDebug TBuffReadThread::execute [ Mutex is locked ] \n");
         ////        
         if (getDataDry())
         {
             bDataDry = true;
-            printf("\nDebug TBuffReadThread::execute [ Data is over ]\n");
+            //printf("\nDebug TBuffReadThread::execute [ Data is over ]\n");
         }
         ///
         if (!getSharedBuffer()->hasRead())
@@ -79,18 +79,18 @@ void* TBuffReadThread::execute(void)
             if (!bDataDry)
         {
             mutex().doSignal();
-            printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is waiting data ]\n");
+            //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is waiting data ]\n");
         }
         ////
-        printf("\nDebug TBuffReadThread::execute [ Try UnLock Mutex ] \n");
+        //printf("\nDebug TBuffReadThread::execute [ Try UnLock Mutex ] \n");
         mutex().doUnlock();
-        printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
+        //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
         ////
     }
     ////
     IFileAgent::stCloseFile(FWriteFile);
     //
-    printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is finishing ]\n");
+    //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is finishing ]\n");
     //
     return (NULL);
 }
@@ -99,7 +99,7 @@ void* TBuffReadThread::execute(void)
 
 TBuffReadThread::~TBuffReadThread(void)
 {
-    printf("\nDebug TBuffReadThread::~TBuffReadThread [ Destroy ]\n");
+    //printf("\nDebug TBuffReadThread::~TBuffReadThread [ Destroy ]\n");
 }
 
 //
@@ -114,29 +114,25 @@ void TBuffReadThread::encodeAndWriteFile(void)
 
     TBuffer& sharedBuff = *(getSharedBuffer());
     //
-    printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread is getting data ]\n");
+    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread is getting data ]\n");
     sharedBuff.doRead(buffer, encodeBuffSize);
-    printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has gotten data ]\n");
+    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has gotten data ]\n");
     //
     encoder().doEncode(buffer, encodeBuffSize);
-    printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has passed data to encode ]\n");
+    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has passed data to encode ]\n");
     const TByte* encodedBuff = NULL;
     unsigned long int encodedBuffSize = 0x0L;
     //
     encodedBuffSize = encoder().getBuffer().getSize();
     encodedBuff = encoder().getBuffer().getData();
-    printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has gotten encoded data ]\n");
+    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has gotten encoded data ]\n");
     //
     if (encodedBuffSize != fwrite(encodedBuff, sizeof (TByte),
                                   encodedBuffSize,
                                   FWriteFile))
     {
-        printf("\nDebug TBuffReadThread::encodeAndWriteFile [%ld] <= [ encodeBuffSize ]\n", encodeBuffSize);
+        //printf("\nDebug TBuffReadThread::encodeAndWriteFile [%ld] <= [ encodeBuffSize ]\n", encodeBuffSize);
         IFileAgent::stCloseFile(FWriteFile);
         throw TException("Error TBuffReadThread::encodeAndWriteFile [ FAILED ] <= [ fwrite ]");
-    }
-    else
-    {
-        printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Encoder Bit was successfully written ]\n");
     }
 }

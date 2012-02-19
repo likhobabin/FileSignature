@@ -1,13 +1,6 @@
 #ifndef __FSIBUFFTHREAD_H__
 #define	__FSIBUFFTHREAD_H__
-////
-#ifdef _MSC_VER
-#pragma pack(push,8)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
+
 ////
 class TBuffer;
 class TMutex;
@@ -22,7 +15,7 @@ public:
 
     void join(void) {
         pthread_join(FThreadId, NULL);
-        printf("\nDebug IBuffThread::join [ Join Other Treads ]\n");
+        //printf("\nDebug IBuffThread::join [ Join Other Treads ]\n");
     }
     //
     virtual ~IBuffThread(void);
@@ -35,11 +28,11 @@ protected:
     }
 
     virtual void setUp(void) {
-        printf("\nDebug IBuffThread::setUp [ Setup Func Of Thread Interface ]\n");
+        //printf("\nDebug IBuffThread::setUp [ Setup Func Of Thread Interface ]\n");
     }
 
     virtual void* execute(void) {
-        printf("\nDebug IBuffThread::execute [ Execute Func Of Thread Interface ]\n");
+        //printf("\nDebug IBuffThread::execute [ Execute Func Of Thread Interface ]\n");
         return (NULL);
     }
     //
@@ -77,14 +70,7 @@ private:
     //
     TMutex& FMutex;
 };
-////
-#ifdef _MSC_VER
-#pragma pack(pop)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option pop
-#endif
+
 ////
 #endif	/* __FSIBUFFTHREAD_H__ */
 

@@ -1,14 +1,6 @@
 #ifndef __FSEXCEPTION_H__
 #define __FSEXCEPTION_H__
 ////
-#ifdef _MSC_VER
-#pragma pack(push,8)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
-////
 
 class TException : public std::exception {
 public:
@@ -31,13 +23,6 @@ public:
 private:
     std::string FDescription;
 };
-////
-#ifdef _MSC_VER
-#pragma pack(pop)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option pop
-#endif
+
 ////
 #endif // __FSEXCEPTION_H__

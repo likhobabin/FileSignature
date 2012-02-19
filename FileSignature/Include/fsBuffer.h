@@ -1,14 +1,6 @@
 #ifndef __FSBUFFER_H__
 #define	__FSBUFFER_H__
 ////
-#ifdef _MSC_VER
-#pragma pack(push,8)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
-////
 
 class TBuffer {
 public:
@@ -77,14 +69,7 @@ private:
     //
     void Close(void);
 };
-////
-#ifdef _MSC_VER
-#pragma pack(pop)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option pop
-#endif
+
 ////
 #endif	/*__FSBUFFER_H__ */
 

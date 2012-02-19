@@ -3,13 +3,8 @@
 #include "fsBuffer.h"
 #include "fsBitEncoder.h"
 ////
-#ifdef __BORLANDC__
-#pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
-//
+
 #ifdef _MSC_VER
-#pragma pack(8)
-#pragma warning(disable:4355)
 #ifdef min
 #undef min
 #endif

@@ -7,14 +7,10 @@
 #include "fsFileAgentThr.h"
 #include "fsBitEncoder.h"
 #include "fsBuffWriteThread.h"
+#include "fsProgressBar.h"
 ////
-#ifdef __BORLANDC__
-#pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
-//
+
 #ifdef _MSC_VER
-#pragma pack(8)
-#pragma warning(disable:4355)
 #ifdef min
 #undef min
 #endif
@@ -22,7 +18,7 @@
 #undef max
 #endif
 #endif
-//
+/////
 
 TBuffWriteThread::TBuffWriteThread(std::string __FReadFilePath, TMutex& __FMutex) :
 IBuffThread(__FMutex),
@@ -39,28 +35,39 @@ void TBuffWriteThread::setUp(void)
     if (NULL == FReadFile)
         throw TException("Error TBuffWriteThread::setUp [ NULL ] <= [ ptrReadFile = fopen64(...) ]");
     //
-    printf("\nDebug TBuffWriteThread::setUp [ Write Buffer Thread Has Set Up ]\n");
+    //printf("\nDebug TBuffWriteThread::setUp [ Write Buffer Thread Has Set Up ]\n");
 }
 //
 
 void* TBuffWriteThread::execute(void)
 {
-    printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread Has Started ]\n");
+    //printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread Has Started ]\n");
     ////
     unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
     bool bDataDry = false;
     //
+    off64_t rdFileSize = 0x0LL;
+    long int bitSize = 0x0L;
+    unsigned long int allIterators = 0x0L;
+    unsigned long int readBit = 0x0L;
+    //
+    rdFileSize = IFileAgent::stFileSize(FReadFile);
+    bitSize = TBitEncoder::stGetBitSize();
+    allIterators = (unsigned long int) (rdFileSize / bitSize);
+    //
+    TProgressBar progressBar(allIterators);
+    //
     for (; !bDataDry;)
     {
-        printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
+        //printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
         mutex().doLock();
-        printf("\nDebug TBuffWriteThread::execute [ Lock Mutex is Gotten ] \n");
+        //printf("\nDebug TBuffWriteThread::execute [ Lock Mutex is Gotten ] \n");
         ////
         if (!getSharedBuffer()->hasRead())
         {
             mutex().doWait();
             ////
-            printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
+            //printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
         }
         else
         {
@@ -72,26 +79,29 @@ void* TBuffWriteThread::execute(void)
             if (0 == fread(buffer, sizeof (TByte), encodeBuffSize, FReadFile))
             {
                 setDataDry(true);
-                printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
+                //printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
                 bDataDry = true;
             }
             else
             {
+                ++readBit;
+                progressBar.Show(readBit);
                 //
                 TBuffer& sharedBuff = *(getSharedBuffer());
                 sharedBuff.doFill(buffer, encodeBuffSize);
                 //
-                printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
+                //printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
             }
         }
         //
-        printf("\nDebug TBuffWriteThread::execute [ Try UnLock Mutex ] \n");
+        //printf("\nDebug TBuffWriteThread::execute [ Try UnLock Mutex ] \n");
         mutex().doUnlock();
+        //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
     }
     //
     IFileAgent::stCloseFile(FReadFile);
     //
-    printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
+    //printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
     ////
     return (NULL);
 }
@@ -100,5 +110,5 @@ void* TBuffWriteThread::execute(void)
 
 TBuffWriteThread::~TBuffWriteThread(void)
 {
-    printf("\nDebug TBuffWriteThread::~TBuffWriteThread [ Destroy ]\n");
+    //printf("\nDebug TBuffWriteThread::~TBuffWriteThread [ Destroy ]\n");
 }

@@ -1,6 +1,7 @@
 #ifndef __FSPRECOMPILE_H__
 #define __FSPRECOMPILE_H__
 ////
+
 #include <iostream>
 #include <exception>
 #include <stdio.h>
@@ -14,22 +15,6 @@
 #include "fsException.h"
 ////
 typedef unsigned char TByte;
+
 ////
-#ifdef _MSC_VER
-#pragma pack(push,8)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option push -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
-////
-////
-#ifdef _MSC_VER
-#pragma pack(pop)
-#endif
-//
-#ifdef __BORLANDC__
-#pragma option pop
-#endif
-////
-#endif // __FSBITGENERATOR_H__
+#endif // __FSPRECOMPILE_H__
