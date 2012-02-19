@@ -8,13 +8,8 @@
 #include "fsFileAgentThr.h"
 #include "fsBuffReadThread.h"
 ////
-#ifdef __BORLANDC__
-#pragma option -w -O2 -vi- -b -6 -k -a8 -pc -ff
-#endif
-//
+
 #ifdef _MSC_VER
-#pragma pack(8)
-#pragma warning(disable:4355)
 #ifdef min
 #undef min
 #endif
@@ -62,7 +57,7 @@ void* TBuffReadThread::execute(void)
         mutex().doLock();
         //printf("\nDebug TBuffReadThread::execute [ Mutex is locked ] \n");
         ////        
-        if (getDataDry())
+        if (getDataDryState())
         {
             bDataDry = true;
             //printf("\nDebug TBuffReadThread::execute [ Data is over ]\n");

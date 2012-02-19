@@ -25,7 +25,7 @@ protected:
     virtual void* execute(void);
     //
 
-    bool getDataDry(void) const {
+    bool getDataDryState(void) const {
         return (bDataDry);
     }
 
