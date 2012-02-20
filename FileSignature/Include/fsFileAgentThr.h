@@ -10,9 +10,19 @@ public:
 
     virtual void doGenerate(const std::string& /*__FInputFilePath*/,
             const std::string& /*__FOutputFilePath*/);
-
     //
     ~TFileAgentThr(void);
+
+    //*********************************************
+
+    static void stSetExitSignal(bool __bExitSignal) {
+        bExitSignal = __bExitSignal;
+    }
+    //
+
+    static bool stGetExitSignal(void) {
+        return (bExitSignal);
+    }
 
 private:
     TBuffer& FThrSharedBuff;
@@ -20,6 +30,9 @@ private:
 
     TFileAgentThr(const TFileAgentThr&);
     TFileAgentThr& operator=(const TFileAgentThr&);
+    //
+    //*********************************************
+    static bool bExitSignal;
 
 };
 

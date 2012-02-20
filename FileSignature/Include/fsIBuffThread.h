@@ -34,7 +34,7 @@ public:
         return (bFileClosed);
     }
     //
-    
+
     void setFileClosedState(bool __bFileClosed) {
         bFileClosed = __bFileClosed;
     }
@@ -74,11 +74,6 @@ protected:
     }
     //
 
-    TMutex& mutex(void) {
-        return (FMutex);
-    }
-    //
-
     const TMutex& mutex(void) const {
         return (FMutex);
     }
@@ -88,7 +83,12 @@ protected:
         return (FPtrFileHandle);
     }
     //
-
+    
+    TMutex& mutex(void) {
+        return (FMutex);
+    }
+    //
+    
     //**********************************************
     static void* stStartPoint(void* /*__FPtrThreadArg*/);
 

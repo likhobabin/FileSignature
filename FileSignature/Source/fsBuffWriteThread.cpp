@@ -44,7 +44,7 @@ void* TBuffWriteThread::execute(void)
     //printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread Has Started ]\n");
     ////
     unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
-    bool bDataDry = false;
+    bool bExit = false;
     //
     off64_t rdFileSize = 0x0LL;
     long int bitSize = 0x0L;
@@ -57,54 +57,67 @@ void* TBuffWriteThread::execute(void)
     //
     TProgressBar progressBar(allIterators);
     //
-    for (; !bDataDry;)
+    for (; !bExit;)
     {
-        //printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
-        mutex().doLock();
-        //printf("\nDebug TBuffWriteThread::execute [ Lock Mutex is Gotten ] \n");
-        ////
-        if (!getSharedBuffer()->hasRead())
+        try
         {
-            mutex().doWait();
-            ////
-            //printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
+            //printf("\nDebug TBuffWriteThread::execute [ Try Lock Mutex ] \n");
+            mutex().doLock();
+            //printf("\nDebug TBuffWriteThread::execute [ Lock Mutex is Gotten ] \n");
+
+            if (TFileAgentThr::stGetExitSignal())
+                bExit = true;
+            //
+            if (!bExit)
+            {
+                if (!getSharedBuffer()->hasRead())
+                {
+                    mutex().doWait();
+                    //printf("\nDebug TBuffWriteThread::execute [ waiting file to being read...  mutex().doWait() ]\n");
+                }
+                else
+                {
+                    TByte nullChar = '0';
+                    TByte buffer[encodeBuffSize];
+                    //
+                    memset(buffer, nullChar, encodeBuffSize);
+                    //
+                    if (0 == fread(buffer, sizeof (TByte), encodeBuffSize,
+                                   IBuffThread::getFileHandler()))
+                    {
+                        //printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
+                        bExit = true;
+                        setDataDryState(true);
+                    }
+                    else
+                    {
+                        ++readBit;
+                        progressBar.Show(readBit);
+                        //
+                        TBuffer& sharedBuff = *(getSharedBuffer());
+                        sharedBuff.doFill(buffer, encodeBuffSize);
+                        //
+                        //printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
+                    }
+                }
+            }
+            //
+            //printf("\nDebug TBuffWriteThread::execute [ Try UnLock Mutex ] \n");
+            mutex().doUnlock();
+            //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
         }
-        else
+        catch (std::exception& /*ex*/)
         {
-            TByte nullChar = '0';
-            TByte buffer[encodeBuffSize];
+            TFileAgentThr::stSetExitSignal(true);
+            bExit = true;
             //
-            memset(buffer, nullChar, encodeBuffSize);
-            //
-            if (0 == fread(buffer, sizeof (TByte), encodeBuffSize,
-                           IBuffThread::getFileHandler()))
-            {
-                setDataDryState(true);
-                //printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
-                bDataDry = true;
-            }
-            else
-            {
-                ++readBit;
-                progressBar.Show(readBit);
-                //
-                TBuffer& sharedBuff = *(getSharedBuffer());
-                sharedBuff.doFill(buffer, encodeBuffSize);
-                //
-                //printf("\nDebug TBuffWriteThread::execute [ writing file... fread(...) ]\n");
-            }
+            mutex().doUnlock();
         }
-        //
-        //printf("\nDebug TBuffWriteThread::execute [ Try UnLock Mutex ] \n");
-        mutex().doUnlock();
-        //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
     }
     //
     IFileAgent::stCloseFile(IBuffThread::getFileHandler());
     IBuffThread::setFileClosedState(true);
     //
-    //printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
-    ////
     return (NULL);
 }
 

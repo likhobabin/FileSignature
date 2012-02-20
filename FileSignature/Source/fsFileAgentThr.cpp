@@ -37,33 +37,11 @@ void TFileAgentThr::doGenerate(const std::string& __FInputFilePath,
                              wrThread.getDataDryState(),
                              encBitSize);
     //
-    try
-    {
-        wrThread.doStart(&FThrSharedBuff);
-        rdThread.doStart(&FThrSharedBuff);
-        //
-        wrThread.join();
-        rdThread.join();
-    }
-    catch (const std::exception& /*ex*/)
-    {
-        if (!wrThread.getFileClosedState())
-        {
-            IFileAgent::stCloseFile(wrThread.getFileHandler());
-            wrThread.setFileClosedState(true);
-        }
-        //
-        if (!rdThread.getFileClosedState())
-        {
-            IFileAgent::stCloseFile(rdThread.getFileHandler());
-            rdThread.setFileClosedState(true);
-        }
-        //
-        wrThread.join();
-        rdThread.join();
-        //
-        throw;
-    }
+    wrThread.doStart(&FThrSharedBuff);
+    rdThread.doStart(&FThrSharedBuff);
+    //
+    wrThread.join();
+    rdThread.join();
 }
 //
 
@@ -71,4 +49,7 @@ TFileAgentThr::~TFileAgentThr(void)
 {
     delete (&FThrSharedBuff);
 }
+//
 
+//*********************************
+bool TFileAgentThr::bExitSignal = false;

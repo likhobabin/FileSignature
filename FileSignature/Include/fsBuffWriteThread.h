@@ -14,19 +14,15 @@ public:
         return (bDataDry);
     }
 
-    void setDataDryState(bool __bDataDry) {
-        bDataDry = __bDataDry;
-    }
-    //
-
     virtual ~TBuffWriteThread(void);
+    //
 
 protected:
     //
     virtual void setUp(void);
-    //
-    virtual void* execute(void);
 
+    virtual void* execute(void);
+    //
 
 private:
     std::string FReadFilePath;
@@ -37,11 +33,15 @@ private:
     TBuffWriteThread& operator=(const TBuffWriteThread&);
     //
 
-    //**************
-
     const std::string& readFilePath(void) const {
         return (FReadFilePath);
     }
+    //
+
+    void setDataDryState(bool __bDataDry) {
+        bDataDry = __bDataDry;
+    }
+    //
 };
 
 ////
