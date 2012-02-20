@@ -135,7 +135,6 @@ void TBuffReadThread::encodeAndWriteFile(void)
                                   IBuffThread::getFileHandler()))
     {
         //printf("\nDebug TBuffReadThread::encodeAndWriteFile [%ld] <= [ encodeBuffSize ]\n", encodeBuffSize);
-        TFileAgentThr::stSetExitSignal(true);
         //
         throw TException("Error TBuffReadThread::encodeAndWriteFile [ FAILED ] <= [ fwrite ]");
     }
