@@ -20,7 +20,6 @@ private:
 
     TFileAgentThr(const TFileAgentThr&);
     TFileAgentThr& operator=(const TFileAgentThr&);
-    //
 
 };
 

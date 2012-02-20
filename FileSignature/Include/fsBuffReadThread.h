@@ -31,7 +31,6 @@ protected:
 
 private:
     std::string FWriteFilePath;
-    FILE* FWriteFile;
     TBitEncoder& FEncoder;
     const bool& bDataDry;
     //

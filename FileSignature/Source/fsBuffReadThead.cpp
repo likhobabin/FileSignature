@@ -25,7 +25,6 @@ TBuffReadThread::TBuffReadThread(std::string __FWriteFilePath,
                                  long int __FEncBitSize) :
 IBuffThread(__FMutex),
 FWriteFilePath(__FWriteFilePath),
-FWriteFile(NULL),
 FEncoder(*(new TBitEncoder(__FEncBitSize))),
 bDataDry(__bDataDry)
 {
@@ -34,8 +33,8 @@ bDataDry(__bDataDry)
 
 void TBuffReadThread::setUp(void)
 {
-    FWriteFile = fopen64(writeFilePath().c_str(), "wb");
-    if (NULL == FWriteFile)
+    IBuffThread::getFileHandlerRef() = fopen64(writeFilePath().c_str(), "wb");
+    if (NULL == IBuffThread::getFileHandler())
     {
         throw TException("Error TBuffReadThread::setUp [ NULL ] <= [ FWriteFile = fopen64(...) ]");
     }
@@ -46,8 +45,6 @@ void TBuffReadThread::setUp(void)
 void* TBuffReadThread::execute(void)
 {
     //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread Has Started ]\n");
-
-    //printf("\nDebug TBuffReadThread::execute [ Try Lock Mutex ] \n");
     bool bDataDry = false;
 
     for (; !bDataDry;)
@@ -82,11 +79,10 @@ void* TBuffReadThread::execute(void)
         //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
         ////
     }
+    //
+    IFileAgent::stCloseFile(IBuffThread::getFileHandler());
+    IBuffThread::setFileClosedState(true);
     ////
-    IFileAgent::stCloseFile(FWriteFile);
-    //
-    //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is finishing ]\n");
-    //
     return (NULL);
 }
 
@@ -94,7 +90,6 @@ void* TBuffReadThread::execute(void)
 
 TBuffReadThread::~TBuffReadThread(void)
 {
-    //printf("\nDebug TBuffReadThread::~TBuffReadThread [ Destroy ]\n");
 }
 
 //
@@ -124,10 +119,12 @@ void TBuffReadThread::encodeAndWriteFile(void)
     //
     if (encodedBuffSize != fwrite(encodedBuff, sizeof (TByte),
                                   encodedBuffSize,
-                                  FWriteFile))
+                                  IBuffThread::getFileHandler()))
     {
         //printf("\nDebug TBuffReadThread::encodeAndWriteFile [%ld] <= [ encodeBuffSize ]\n", encodeBuffSize);
-        IFileAgent::stCloseFile(FWriteFile);
+        IFileAgent::stCloseFile(IBuffThread::getFileHandler());
+        IBuffThread::setFileClosedState(true);
+        //
         throw TException("Error TBuffReadThread::encodeAndWriteFile [ FAILED ] <= [ fwrite ]");
     }
 }

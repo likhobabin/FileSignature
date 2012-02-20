@@ -23,7 +23,6 @@
 TBuffWriteThread::TBuffWriteThread(std::string __FReadFilePath, TMutex& __FMutex) :
 IBuffThread(__FMutex),
 FReadFilePath(__FReadFilePath),
-FReadFile(NULL),
 bDataDry(false)
 {
 }
@@ -31,9 +30,10 @@ bDataDry(false)
 
 void TBuffWriteThread::setUp(void)
 {
-    FReadFile = fopen64(readFilePath().c_str(), "rb");
-    if (NULL == FReadFile)
-        throw TException("Error TBuffWriteThread::setUp [ NULL ] <= [ ptrReadFile = fopen64(...) ]");
+    IBuffThread::getFileHandlerRef() = fopen64(readFilePath().c_str(), "rb");
+    if (NULL == IBuffThread::getFileHandler())
+        throw TException("Error TBuffWriteThread::setUp [ NULL ] <= "
+                         "      [ IBuffThread::getFileHandler() = fopen64(...) ]");
     //
     //printf("\nDebug TBuffWriteThread::setUp [ Write Buffer Thread Has Set Up ]\n");
 }
@@ -51,7 +51,7 @@ void* TBuffWriteThread::execute(void)
     unsigned long int allIterators = 0x0L;
     unsigned long int readBit = 0x0L;
     //
-    rdFileSize = IFileAgent::stFileSize(FReadFile);
+    rdFileSize = IFileAgent::stFileSize(IBuffThread::getFileHandler());
     bitSize = TBitEncoder::stGetBitSize();
     allIterators = (unsigned long int) (rdFileSize / bitSize);
     //
@@ -76,9 +76,10 @@ void* TBuffWriteThread::execute(void)
             //
             memset(buffer, nullChar, encodeBuffSize);
             //
-            if (0 == fread(buffer, sizeof (TByte), encodeBuffSize, FReadFile))
+            if (0 == fread(buffer, sizeof (TByte), encodeBuffSize,
+                           IBuffThread::getFileHandler()))
             {
-                setDataDry(true);
+                setDataDryState(true);
                 //printf("\nDebug TBuffWriteThread::execute [ File Ended Up ]\n");
                 bDataDry = true;
             }
@@ -99,7 +100,8 @@ void* TBuffWriteThread::execute(void)
         //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
     }
     //
-    IFileAgent::stCloseFile(FReadFile);
+    IFileAgent::stCloseFile(IBuffThread::getFileHandler());
+    IBuffThread::setFileClosedState(true);
     //
     //printf("\nDebug TBuffWriteThread::execute [ Write Buffer Thread is finishing ]\n");
     ////
@@ -110,5 +112,4 @@ void* TBuffWriteThread::execute(void)
 
 TBuffWriteThread::~TBuffWriteThread(void)
 {
-    //printf("\nDebug TBuffWriteThread::~TBuffWriteThread [ Destroy ]\n");
 }

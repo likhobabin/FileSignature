@@ -2,6 +2,7 @@
 //
 #include "fsBuffer.h"
 #include "fsIBuffThread.h"
+#include "fsIFileAgent.h"
 ////
 
 #ifdef _MSC_VER
@@ -17,6 +18,8 @@
 
 IBuffThread::IBuffThread(TMutex& __FMutex) :
 FSharedBuffer(NULL),
+FPtrFileHandle(NULL),
+bFileClosed(false),
 FMutex(__FMutex)
 {
 }

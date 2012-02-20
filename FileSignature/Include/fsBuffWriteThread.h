@@ -14,9 +14,10 @@ public:
         return (bDataDry);
     }
 
-    void setDataDry(bool __bDataDry) {
+    void setDataDryState(bool __bDataDry) {
         bDataDry = __bDataDry;
     }
+    //
 
     virtual ~TBuffWriteThread(void);
 
@@ -29,7 +30,6 @@ protected:
 
 private:
     std::string FReadFilePath;
-    FILE* FReadFile;
     bool bDataDry;
     //
 

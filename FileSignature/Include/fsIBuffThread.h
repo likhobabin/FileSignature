@@ -17,7 +17,29 @@ public:
         pthread_join(FThreadId, NULL);
         //printf("\nDebug IBuffThread::join [ Join Other Treads ]\n");
     }
+
     //
+
+    const FILE* getFileHandler(void) const {
+        return (FPtrFileHandle);
+    }
+    //
+
+    FILE* getFileHandler(void) {
+        return (FPtrFileHandle);
+    }
+    //
+
+    bool getFileClosedState(void) {
+        return (bFileClosed);
+    }
+    //
+    
+    void setFileClosedState(bool __bFileClosed) {
+        bFileClosed = __bFileClosed;
+    }
+    //
+
     virtual ~IBuffThread(void);
 
 protected:
@@ -61,12 +83,20 @@ protected:
         return (FMutex);
     }
     //
+
+    FILE*& getFileHandlerRef(void) {
+        return (FPtrFileHandle);
+    }
+    //
+
     //**********************************************
     static void* stStartPoint(void* /*__FPtrThreadArg*/);
 
 private:
     pthread_t FThreadId;
     TBuffer* FSharedBuffer;
+    FILE* FPtrFileHandle;
+    bool bFileClosed;
     //
     TMutex& FMutex;
 };
