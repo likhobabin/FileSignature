@@ -33,12 +33,23 @@ bDataDry(__bDataDry)
 
 void TBuffReadThread::setUp(void)
 {
-    IBuffThread::getFileHandlerRef() = fopen64(writeFilePath().c_str(), "wb");
-    if (NULL == IBuffThread::getFileHandler())
+    try
     {
-        throw TException("Error TBuffReadThread::setUp [ NULL ] <= [ FWriteFile = fopen64(...) ]");
+        IBuffThread::getFileHandlerRef() = fopen64(writeFilePath().c_str(), "wb");
+        if (NULL == IBuffThread::getFileHandler())
+        {
+            throw TException("Error TBuffReadThread::setUp [ NULL ] <= [ FWriteFile = fopen64(...) ]");
+        }
+        //printf("\nDebug TBuffReadThread::setUp [ Read Buffer Thread Has Set Up ]\n");
     }
-    //printf("\nDebug TBuffReadThread::setUp [ Read Buffer Thread Has Set Up ]\n");
+    catch (std::exception& /*ex*/)
+    {
+        mutex().doLock();
+        //
+        TFileAgentThr::stSetExitSignal(true);
+        //
+        mutex().doUnlock();
+    }
 }
 //
 
@@ -98,13 +109,11 @@ void* TBuffReadThread::execute(void)
     ////
     return (NULL);
 }
-
 //
 
 TBuffReadThread::~TBuffReadThread(void)
 {
 }
-
 //
 
 void TBuffReadThread::encodeAndWriteFile(void)

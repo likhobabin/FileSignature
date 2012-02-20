@@ -30,12 +30,25 @@ bDataDry(false)
 
 void TBuffWriteThread::setUp(void)
 {
-    IBuffThread::getFileHandlerRef() = fopen64(readFilePath().c_str(), "rb");
-    if (NULL == IBuffThread::getFileHandler())
-        throw TException("Error TBuffWriteThread::setUp [ NULL ] <= "
-                         "      [ IBuffThread::getFileHandler() = fopen64(...) ]");
-    //
-    //printf("\nDebug TBuffWriteThread::setUp [ Write Buffer Thread Has Set Up ]\n");
+    try
+    {
+        IBuffThread::getFileHandlerRef() = fopen64(readFilePath().c_str(), "rb");
+        if (NULL == IBuffThread::getFileHandler())
+            throw TException("Error TBuffWriteThread::setUp [ NULL ] <= "
+                             "      [ IBuffThread::getFileHandler() = fopen64(...) ]");
+        //
+        //printf("\nDebug TBuffWriteThread::setUp [ Write Buffer Thread Has Set Up ]\n");
+        ////
+        mutex().doUnlock();
+    }
+    catch (std::exception& /*ex*/)
+    {
+        mutex().doLock();
+        //
+        TFileAgentThr::stSetExitSignal(true);
+        //
+        mutex().doUnlock();
+    }
 }
 //
 
@@ -120,7 +133,6 @@ void* TBuffWriteThread::execute(void)
     //
     return (NULL);
 }
-
 //
 
 TBuffWriteThread::~TBuffWriteThread(void)
