@@ -49,6 +49,3 @@ TFileAgentThr::~TFileAgentThr(void)
 {
 }
 
-//****************************************************
-bool TFileAgentThr::stBDataDry = false;
-unsigned int TFileAgentThr::thrCount = 0;

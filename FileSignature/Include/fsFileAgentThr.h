@@ -13,22 +13,9 @@ public:
 
     //
     ~TFileAgentThr(void);
-    //******************
-
-    static bool stDataDry(void) {
-        return (stBDataDry);
-    }
-    //
-
-    static void setDataDry(bool __bDataDry) {
-        stBDataDry = __bDataDry;
-    }
-    ///
-    static unsigned int thrCount;
 
 private:
     TBuffer& FThrSharedBuff;
-    static bool stBDataDry;
 
 };
 
