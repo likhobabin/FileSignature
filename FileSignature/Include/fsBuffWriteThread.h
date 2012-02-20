@@ -31,6 +31,12 @@ private:
     std::string FReadFilePath;
     FILE* FReadFile;
     bool bDataDry;
+    //
+
+    TBuffWriteThread(const TBuffWriteThread&);
+    TBuffWriteThread& operator=(const TBuffWriteThread&);
+    //
+
     //**************
 
     const std::string& readFilePath(void) const {

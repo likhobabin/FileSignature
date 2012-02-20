@@ -17,6 +17,11 @@ private:
     //
     double progress(unsigned long int /*__FItNum*/);
     double onePercent(void);
+    //
+    
+    TProgressBar(const TProgressBar&);
+    TProgressBar& operator=(const TProgressBar&);
+    //
 };
 
 ////

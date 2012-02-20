@@ -45,6 +45,11 @@ private:
     unsigned long int FRightOffset;
     unsigned long int FLeftOffset;
     //
+
+    TBuffer(const TBuffer&);
+    TBuffer& operator=(const TBuffer&);
+    //
+
     void Resize(unsigned long int /*__FSize*/);
     void Fill(const TByte __FFillInData[], unsigned long int /*__FSize*/);
     //

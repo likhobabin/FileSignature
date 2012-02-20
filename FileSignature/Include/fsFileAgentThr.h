@@ -16,6 +16,11 @@ public:
 
 private:
     TBuffer& FThrSharedBuff;
+    //
+
+    TFileAgentThr(const TFileAgentThr&);
+    TFileAgentThr& operator=(const TFileAgentThr&);
+    //
 
 };
 

@@ -17,6 +17,10 @@ public:
 private:
     pthread_mutex_t FMutexCount;
     pthread_cond_t FConditionId;
+    //
+    TMutex(const TMutex&);
+    TMutex& operator=(const TMutex&);
+    //
 };
 
 ////

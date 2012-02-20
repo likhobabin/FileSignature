@@ -36,6 +36,10 @@ private:
     const bool& bDataDry;
     //
 
+    TBuffReadThread(const TBuffReadThread&);
+    TBuffReadThread& operator=(const TBuffReadThread&);
+    //
+
     TBitEncoder& encoder(void) {
         return (FEncoder);
     }

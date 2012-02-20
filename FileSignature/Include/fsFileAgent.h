@@ -17,6 +17,11 @@ public:
 
     //
     ~TFileAgent(void);
+
+private:
+    TFileAgent(const TFileAgent&);
+    TFileAgent& operator=(const TFileAgent&);
+    //
 };
 
 ////

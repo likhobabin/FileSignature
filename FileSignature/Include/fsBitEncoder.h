@@ -31,6 +31,9 @@ private:
     TBuffer& Buffer(void) {
         return (FBuffer);
     }
+    //
+    TBitEncoder(const TBitEncoder&);
+    TBitEncoder& operator=(const TBitEncoder&);
     //******************************************
     static long int stBitSize;
     //
