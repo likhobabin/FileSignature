@@ -39,7 +39,6 @@ void TBuffWriteThread::setUp(void)
         //
         //printf("\nDebug TBuffWriteThread::setUp [ Write Buffer Thread Has Set Up ]\n");
         ////
-        mutex().doUnlock();
     }
     catch (std::exception& /*ex*/)
     {
