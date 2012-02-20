@@ -47,5 +47,6 @@ void TFileAgentThr::doGenerate(const std::string& __FInputFilePath,
 
 TFileAgentThr::~TFileAgentThr(void)
 {
+    delete (&FThrSharedBuff);
 }
 
