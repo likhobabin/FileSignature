@@ -24,8 +24,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}"  "/home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/inputTst1" "/home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/outputTst1"</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}"  "/home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/input_tst1" "/home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"  /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/__input_tst1 /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"  /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/input_tst1 /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"  /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/input_tst1.txt /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1</runcommandpicklistitem>
@@ -35,8 +33,13 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"  /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/input_tst1.bin /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1.bin 1048576</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"  ../../../../tstData/input_tst1.bin ../../../../tstData/output_tst1.bin 1048576</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/input_tst1.bin /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1.bin 1048576</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" 
+/home/ilya/Workspace/Programming/FileSignature/Tests/tstData/tstInput_1.mdf
+/home/ilya/Workspace/Programming/FileSignature/Tests/tstData/tstOutput_1.mdf
+1048576</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  /home/ilya/Workspace/Programming/FileSignature/Tests/tstData/tstInput_1.mdf /home/ilya/Workspace/Programming/FileSignature/Tests/tstData/tstOutput_1.mdf 1048576</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/input_tst1.bin /home/ilya/Workspace/Programming/C++/FileSignature/Tests/tstData/output_tst1.bin 1048576</runcommand>
+        <runcommand>"${OUTPUT_PATH}"  /home/ilya/Workspace/Programming/FileSignature/Tests/tstData/tstInput_1.mdf /home/ilya/Workspace/Programming/FileSignature/Tests/tstData/tstOutput_1.mdf 1048576</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

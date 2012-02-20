@@ -34,8 +34,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Source/fsFileAgent.o \
 	${OBJECTDIR}/Source/fsBuffReadThead.o \
+	${OBJECTDIR}/Source/fsFileAgent.o \
 	${OBJECTDIR}/Source/fsIFileAgent.o \
 	${OBJECTDIR}/Source/fsProgressBar.o \
 	${OBJECTDIR}/Source/fsFileAgentThr.o \
@@ -73,15 +73,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfilesignature.a
 
-${OBJECTDIR}/Source/fsFileAgent.o: Source/fsFileAgent.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Source
-	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
-
 ${OBJECTDIR}/Source/fsBuffReadThead.o: Source/fsBuffReadThead.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsBuffReadThead.o Source/fsBuffReadThead.cpp
+
+${OBJECTDIR}/Source/fsFileAgent.o: Source/fsFileAgent.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Source
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D__USE_FILE_OFFSET64 -I. -IInclude -MMD -MP -MF $@.d -o ${OBJECTDIR}/Source/fsFileAgent.o Source/fsFileAgent.cpp
 
 ${OBJECTDIR}/Source/fsIFileAgent.o: Source/fsIFileAgent.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Source
