@@ -11,7 +11,7 @@ public:
     TBuffWriteThread(std::string /*__FReadFilePath*/, TMutex& /*__FMutex*/);
 
     const bool& getDataDryState(void) const {
-        return (bDataDry);
+        return (bDataDryState);
     }
 
     virtual ~TBuffWriteThread(void);
@@ -26,7 +26,7 @@ protected:
 
 private:
     std::string FReadFilePath;
-    bool bDataDry;
+    bool bDataDryState;
     //
 
     TBuffWriteThread(const TBuffWriteThread&);
@@ -38,8 +38,8 @@ private:
     }
     //
 
-    void setDataDryState(bool __bDataDry) {
-        bDataDry = __bDataDry;
+    void setDataDryState(bool __bDataDryState) {
+        bDataDryState = __bDataDryState;
     }
     //
 };

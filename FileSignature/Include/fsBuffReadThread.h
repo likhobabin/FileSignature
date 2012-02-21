@@ -26,13 +26,13 @@ protected:
     //
 
     bool getDataDryState(void) const {
-        return (bDataDry);
+        return (bDataDryState);
     }
 
 private:
     std::string FWriteFilePath;
     TBitEncoder& FEncoder;
-    const bool& bDataDry;
+    const bool& bDataDryState;
     //
 
     TBuffReadThread(const TBuffReadThread&);
@@ -53,7 +53,8 @@ private:
         return (FWriteFilePath);
     }
     //
-    void encodeAndWriteFile(void);
+    void encodeAndWriteFile(TByte __FEncBuff[],  
+                            unsigned long int /*__FEncBuffSize*/);
 };
 
 ////

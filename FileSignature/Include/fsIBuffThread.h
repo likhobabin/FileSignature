@@ -30,16 +30,6 @@ public:
     }
     //
 
-    bool getFileClosedState(void) {
-        return (bFileClosed);
-    }
-    //
-
-    void setFileClosedState(bool __bFileClosed) {
-        bFileClosed = __bFileClosed;
-    }
-    //
-
     virtual ~IBuffThread(void);
 
 protected:
@@ -83,12 +73,12 @@ protected:
         return (FPtrFileHandle);
     }
     //
-    
+
     TMutex& mutex(void) {
         return (FMutex);
     }
     //
-    
+
     //**********************************************
     static void* stStartPoint(void* /*__FPtrThreadArg*/);
 
@@ -96,7 +86,6 @@ private:
     pthread_t FThreadId;
     TBuffer* FSharedBuffer;
     FILE* FPtrFileHandle;
-    bool bFileClosed;
     //
     TMutex& FMutex;
 };

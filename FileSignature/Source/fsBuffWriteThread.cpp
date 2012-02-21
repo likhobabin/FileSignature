@@ -23,7 +23,7 @@
 TBuffWriteThread::TBuffWriteThread(std::string __FReadFilePath, TMutex& __FMutex) :
 IBuffThread(__FMutex),
 FReadFilePath(__FReadFilePath),
-bDataDry(false)
+bDataDryState(false)
 {
 }
 //
@@ -128,7 +128,6 @@ void* TBuffWriteThread::execute(void)
     }
     //
     IFileAgent::stCloseFile(IBuffThread::getFileHandler());
-    IBuffThread::setFileClosedState(true);
     //
     return (NULL);
 }

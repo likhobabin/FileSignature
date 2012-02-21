@@ -21,12 +21,12 @@
 
 TBuffReadThread::TBuffReadThread(std::string __FWriteFilePath,
                                  TMutex& __FMutex,
-                                 const bool& __bDataDry,
+                                 const bool& __bDataDryState,
                                  long int __FEncBitSize) :
 IBuffThread(__FMutex),
 FWriteFilePath(__FWriteFilePath),
 FEncoder(*(new TBitEncoder(__FEncBitSize))),
-bDataDry(__bDataDry)
+bDataDryState(__bDataDryState)
 {
 }
 //
@@ -57,8 +57,10 @@ void* TBuffReadThread::execute(void)
 {
     //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread Has Started ]\n");
     bool bExit = false;
+    bool bUnLock = false;
+    bool bDataDry = false;
 
-    for (; !bExit;)
+    for (; !bDataDry && !bExit;)
     {
         try
         {
@@ -69,30 +71,52 @@ void* TBuffReadThread::execute(void)
             if (TFileAgentThr::stGetExitSignal())
             {
                 bExit = true;
+                mutex().doUnlock();
             }
             //
             if (!bExit)
             {
                 if (getDataDryState())
                 {
-                    bExit = true;
+                    bDataDry = true;
                     //printf("\nDebug TBuffReadThread::execute [ Data is over ]\n");
                 }
-                ///
+                //
                 if (!getSharedBuffer()->hasRead())
                 {
-                    encodeAndWriteFile();
+                    unsigned long int encBuffSize = TBitEncoder::stGetBitSize();
+                    TByte nullChar = '0';
+                    TByte encBuffer[encBuffSize];
+                    //
+                    memset(encBuffer, nullChar, encBuffSize);
+                    //
+                    TBuffer& sharedBuff = *(getSharedBuffer());
+                    //
+                    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread is getting data ]\n");
+                    sharedBuff.doRead(encBuffer, encBuffSize);
+                    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has gotten data ]\n");
+                    ////
+                    //printf("\nDebug TBuffReadThread::execute [ Try UnLock Mutex ] \n");
+                    mutex().doUnlock();
+                    bUnLock = true;
+                    //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
+                    ////
+                    encodeAndWriteFile(encBuffer, encBuffSize);
                 }
                 else
-                    if (!bDataDry)
                 {
-                    mutex().doSignal();
-                    //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is waiting data ]\n");
+                    if (!bDataDry)
+                    {
+                        mutex().doSignal();
+                        //printf("\nDebug TBuffReadThread::execute [ Read Buffer Thread is waiting data ]\n");
+                        //      
+                        //printf("\nDebug TBuffReadThread::execute [ Try UnLock Mutex ] \n");
+
+                        //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
+                    }
+                    mutex().doUnlock();
                 }
-                ////
-                //printf("\nDebug TBuffReadThread::execute [ Try UnLock Mutex ] \n");
-                mutex().doUnlock();
-                //printf("\nDebug TBuffReadThread::execute [ UnLock Mutex Is Gotten ] \n");
+
             }
         }
         catch (std::exception& /*ex*/)
@@ -100,12 +124,12 @@ void* TBuffReadThread::execute(void)
             TFileAgentThr::stSetExitSignal(true);
             bExit = true;
             //
-            mutex().doUnlock();
+            if (!bUnLock)
+                mutex().doUnlock();
         }
     }
     //
     IFileAgent::stCloseFile(IBuffThread::getFileHandler());
-    IBuffThread::setFileClosedState(true);
     ////
     return (NULL);
 }
@@ -116,21 +140,10 @@ TBuffReadThread::~TBuffReadThread(void)
 }
 //
 
-void TBuffReadThread::encodeAndWriteFile(void)
+void TBuffReadThread::encodeAndWriteFile(TByte __FEncBuff[],
+                                         unsigned long int __FEncBuffSize)
 {
-    unsigned long int encodeBuffSize = TBitEncoder::stGetBitSize();
-    TByte nullChar = '0';
-    TByte buffer[encodeBuffSize];
-    //
-    memset(buffer, nullChar, encodeBuffSize);
-
-    TBuffer& sharedBuff = *(getSharedBuffer());
-    //
-    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread is getting data ]\n");
-    sharedBuff.doRead(buffer, encodeBuffSize);
-    //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has gotten data ]\n");
-    //
-    encoder().doEncode(buffer, encodeBuffSize);
+    encoder().doEncode(__FEncBuff, __FEncBuffSize);
     //printf("\nDebug TBuffReadThread::encodeAndWriteFile [ Read Buffer Thread has passed data to encode ]\n");
     const TByte* encodedBuff = NULL;
     unsigned long int encodedBuffSize = 0x0L;
