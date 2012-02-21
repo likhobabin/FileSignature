@@ -78,6 +78,18 @@ protected:
         return (FMutex);
     }
     //
+    
+    bool ExtraExit(void ) const 
+    {
+        return(bExtraExit);
+    }
+    //
+    
+    void setExtraExit(bool __bExtraExit)
+    {
+        bExtraExit = __bExtraExit;
+    }
+    //
 
     //**********************************************
     static void* stStartPoint(void* /*__FPtrThreadArg*/);
@@ -88,6 +100,8 @@ private:
     FILE* FPtrFileHandle;
     //
     TMutex& FMutex;
+    //
+    bool bExtraExit;
 };
 
 ////

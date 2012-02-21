@@ -19,7 +19,8 @@
 IBuffThread::IBuffThread(TMutex& __FMutex) :
 FSharedBuffer(NULL),
 FPtrFileHandle(NULL),
-FMutex(__FMutex)
+FMutex(__FMutex),
+bExtraExit(false)
 {
 }
 //
