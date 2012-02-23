@@ -119,11 +119,14 @@ void* TBuffReadThread::execute(void)
             }
             catch (std::exception& /*ex*/)
             {
-                TFileAgentThr::stSetExitSignal(true);
                 IBuffThread::setExtraExit(true);
                 //
                 if (!bUnLock)
-                    mutex().doUnlock();
+                    mutex().doLock();
+                //
+                TFileAgentThr::stSetExitSignal(true);
+                //
+                mutex().doUnlock();
             }
         }
         //
